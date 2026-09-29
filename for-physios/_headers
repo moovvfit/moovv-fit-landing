@@ -1,0 +1,19 @@
+# Filenames here are unversioned (no content hash), so nothing except fonts may be
+# cached immutably — otherwise returning visitors keep stale CSS/HTML forever and the
+# page renders new markup against old styles.
+#
+# Revalidation is cheap: Cloudflare returns 304s via ETag, and the edge still caches.
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Fonts are content-stable — safe to pin.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Media changes while we swap placeholders for real assets; short cache keeps it fresh.
+/images/*
+  Cache-Control: public, max-age=3600
+
+/videos/*
+  Cache-Control: public, max-age=3600

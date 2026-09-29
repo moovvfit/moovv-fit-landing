@@ -1,0 +1,146 @@
+/* Shared styling for the physio-facing legal pages (terms.html, privacy.html).
+   Kept in its own file rather than duplicated in a <style> block on each page,
+   so the two documents cannot drift apart visually. */
+
+.legal-page {
+  padding: 150px 0 100px;
+  background: var(--bg-dark-1);
+  min-height: 100vh;
+  color: var(--white-80);
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.legal-page h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 5vw, 48px);
+  color: var(--white-100);
+  margin-bottom: 12px;
+}
+
+.legal-page h2 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--white-100);
+  margin-top: 44px;
+  margin-bottom: 16px;
+}
+
+.legal-page h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--white-100);
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+.legal-page p,
+.legal-page li {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.legal-page ul {
+  padding-left: 22px;
+  /* Explicit because the site's reset strips list markers. */
+  list-style: disc;
+}
+
+.legal-page strong {
+  color: var(--white-100);
+}
+
+.legal-page a {
+  color: var(--brand-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-page a:hover {
+  color: var(--white-100);
+}
+
+.legal-meta {
+  color: var(--white-60);
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+/* The plain-language summary at the top. Physios are not lawyers; the callout
+   states the split of responsibility before the clauses spell it out. */
+.legal-callout {
+  background: var(--white-4);
+  border: 1px solid var(--white-10);
+  border-left: 3px solid var(--brand-blue);
+  border-radius: 12px;
+  padding: 22px 24px 6px;
+  margin-bottom: 40px;
+}
+
+.legal-callout p:last-child {
+  margin-bottom: 16px;
+}
+
+/* Marks a value that must be filled in before the document is relied upon.
+   Deliberately conspicuous so it cannot ship unnoticed. */
+.legal-tbd {
+  color: var(--pain-red);
+  font-style: italic;
+}
+
+/* A definition-style table for the data-categories section of the privacy page. */
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 24px;
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+
+.legal-table th,
+.legal-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--white-10);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.legal-table th {
+  color: var(--white-100);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.legal-table td {
+  color: var(--white-80);
+}
+
+/* Tables are the one element here that can outgrow a phone. Let it scroll
+   inside its own box rather than pushing the page sideways. */
+.legal-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .legal-page {
+    padding: 120px 0 72px;
+  }
+
+  .legal-page h2 {
+    font-size: 21px;
+    margin-top: 36px;
+  }
+
+  .legal-page p,
+  .legal-page li {
+    font-size: 15px;
+  }
+}

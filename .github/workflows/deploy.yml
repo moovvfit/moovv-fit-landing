@@ -1,0 +1,127 @@
+name: Deploy Landing
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.html'
+      - '**.css'
+      - '**.js'
+      - 'images/**'
+      - 'fonts/**'
+      - 'videos/**'
+      - 'for-physios/**'
+      - '!*.md'
+
+  workflow_call:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+        default: staging
+      confirmation:
+        description: 'Type "DEPLOY_PROD" for production'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.env.outputs.environment }}
+    steps:
+      - name: Determine environment
+        id: env
+        run: |
+          if [ "${{ inputs.environment }}" != "" ]; then
+            echo "environment=${{ inputs.environment }}" >> $GITHUB_OUTPUT
+          else
+            echo "environment=staging" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validate production deployment
+        if: steps.env.outputs.environment == 'production' && github.event_name == 'workflow_dispatch'
+        run: |
+          if [ "${{ github.event.inputs.confirmation }}" != "DEPLOY_PROD" ]; then
+            echo "❌ Production requires 'DEPLOY_PROD' confirmation"
+            exit 1
+          fi
+
+  deploy:
+    needs: setup
+    runs-on: ubuntu-latest
+    environment: ${{ needs.setup.outputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Get CloudFront Distribution ID
+        id: cf
+        run: |
+          DIST_ID=$(aws ssm get-parameter \
+            --name "/moovv-fit/${{ needs.setup.outputs.environment }}/landing_cloudfront_distribution_id" \
+            --query "Parameter.Value" \
+            --output text)
+          echo "distribution_id=$DIST_ID" >> $GITHUB_OUTPUT
+
+      - name: Set S3 bucket name
+        id: bucket
+        run: |
+          echo "name=moovv-fit-content-${{ needs.setup.outputs.environment }}" >> $GITHUB_OUTPUT
+
+      - name: Sync to S3
+        run: |
+          aws s3 sync . s3://${{ steps.bucket.outputs.name }}/web/landing/ \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "*.md" \
+            --exclude ".gitignore" \
+            --cache-control "public, max-age=31536000, immutable" \
+            --metadata-directive REPLACE
+
+          # HTML files should have shorter cache
+          aws s3 sync . s3://${{ steps.bucket.outputs.name }}/web/landing/ \
+            --exclude "*" \
+            --include "*.html" \
+            --cache-control "public, max-age=300" \
+            --metadata-directive REPLACE
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ steps.cf.outputs.distribution_id }} \
+            --paths "/*"
+
+      - name: Summary
+        run: |
+          echo "## ✅ Deployed to ${{ needs.setup.outputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **S3**: s3://${{ steps.bucket.outputs.name }}/web/landing/" >> $GITHUB_STEP_SUMMARY
+          echo "- **CloudFront**: ${{ steps.cf.outputs.distribution_id }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.setup.outputs.environment }}" == "production" ]; then
+            echo "- **URL**: https://www.moovv.fit" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- **URL**: https://www.staging.moovv.fit" >> $GITHUB_STEP_SUMMARY
+          fi

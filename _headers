@@ -1,0 +1,36 @@
+# Static assets are content-addressed by path and safe to cache long-term.
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/videos/*
+  Cache-Control: public, max-age=31536000, immutable
+/hero-gifs/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages must revalidate so policy and content updates go live immediately.
+# Routes are listed explicitly because pages are served extensionless (/privacy).
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+/privacy
+  Cache-Control: public, max-age=0, must-revalidate
+/privacy.html
+  Cache-Control: public, max-age=0, must-revalidate
+/terms
+  Cache-Control: public, max-age=0, must-revalidate
+/terms.html
+  Cache-Control: public, max-age=0, must-revalidate
+/support
+  Cache-Control: public, max-age=0, must-revalidate
+/support.html
+  Cache-Control: public, max-age=0, must-revalidate
+/blog
+  Cache-Control: public, max-age=0, must-revalidate
+/blog.html
+  Cache-Control: public, max-age=0, must-revalidate

@@ -1,0 +1,5 @@
+.DS_Store
+
+# Uncompressed 74 MB source recording — the shipped video is the compressed
+# physio-intro.mp4 (16 MB). Keep the source out of git.
+videos/physio-intro-source.mp4

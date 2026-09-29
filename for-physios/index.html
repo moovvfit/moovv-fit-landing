@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description"
+    content="Moovv for Physios combines appointment booking, walk-in queue management, HD exercise prescription, telehealth and patient pain tracking in one platform — from ₹499/month, with unlimited physios and receptionist logins. A single Indian alternative to running separate practice-management and exercise-prescription software like GritUp or SimpleSet.">
+  <meta name="keywords"
+    content="physiotherapy practice software, physio EMR, exercise prescription software, home exercise program, telehealth physiotherapy, patient adherence tracking, physio clinic management, HEP software India, SimpleSet alternative, GritUp alternative, physiotherapy software India, best physio software for clinics, HEP software pricing, physio clinic queue management, receptionist software for clinics, multi location physiotherapy software, clinic staff management India">
+  <meta name="theme-color" content="#07060D">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Moovv for Physios — grow your practice, not your paperwork">
+  <meta property="og:description"
+    content="Appointment booking, high-quality exercise prescriptions, telehealth, pain & adherence tracking and AI insights — built for physiotherapists.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://physio.moovv.fit/">
+  <meta property="og:image" content="images/placeholders/og-image.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Moovv for Physios — grow your practice, not your paperwork">
+  <meta name="twitter:description"
+    content="Appointment booking, high-quality exercise prescriptions, telehealth, pain & adherence tracking and AI insights — built for physiotherapists.">
+  <meta name="twitter:image" content="images/placeholders/og-image.png">
+
+  <link rel="canonical" href="https://physio.moovv.fit/">
+
+  <title>Moovv for Physios — Grow Your Practice with Telehealth & Smart Prescriptions</title>
+  <link rel="icon" type="image/svg+xml" href="images/Logo_Icon.svg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Moovv for Physios",
+    "applicationCategory": "MedicalApplication",
+    "operatingSystem": "Web",
+    "description": "Practice platform for physiotherapists: appointment booking, walk-in queue management, team and receptionist roles across multiple clinic locations, exercise prescriptions, PDF export, telehealth sessions, pain and adherence tracking, AI insights and patient messaging.",
+    "url": "https://physio.moovv.fit",
+    "publisher": { "@type": "Organization", "name": "Moovv" },
+    "offers": {
+      "@type": "Offer",
+      "price": "499",
+      "priceCurrency": "INR",
+      "description": "From ₹499 per month — ₹100 per active patient with a ₹499 monthly minimum. 30-day free trial."
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is Moovv different from SimpleSet or other exercise-prescription software?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Exercise-prescription tools like SimpleSet build and print home exercise programmes, but do not book appointments, run telehealth consults, or report whether the patient did the work. Moovv covers prescription, scheduling and telehealth together, and its patient app reports pain and completion back daily. Pricing is per active patient rather than a fixed per-clinician seat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there an Indian alternative to GritUp for physiotherapy clinics?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Moovv is built in India and priced in rupees. Where practice-management platforms such as GritUp focus on scheduling, billing and clinic admin, Moovv adds a physio-reviewed exercise library, prescriptions patients follow in an app, pain and adherence tracking, and built-in telehealth. Clinic chains get an organisation dashboard across every physio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is per-patient pricing better value than a per-clinician subscription?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A per-seat subscription costs the same whether you treated forty patients or four. Moovv charges ₹100 per active patient per month with a ₹499 minimum, so cost scales with actual caseload. Because prescription, booking and telehealth are included, you also avoid paying two vendors to cover one workflow."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do my patients need to pay for the Moovv app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Patients you onboard get the Moovv app as part of your care — their plans, exercise videos, reminders and pain tracking are included with your subscription."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can my in-clinic patients also book telehealth sessions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not currently. In-clinic appointments and telehealth sessions run as two separate booking paths. An in-clinic patient books clinic visits; a telehealth patient books remote sessions. Both get the same app, plans and tracking."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I add multiple physios and a receptionist to my clinic account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, with no per-seat charge. Invite every physio in the practice and give the front desk a receptionist login with its own permissions — reception can add walk-ins to the queue and book or reschedule sessions without clinical access. Multiple clinic locations run under one account and physios can be moved between them. Because Moovv charges per active patient, adding staff does not increase your bill."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does walk-in queue management work in Moovv?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Reception adds each walk-in to the day's queue with a name, phone number and note. Every physio sees who is waiting on their own screen and picks the next patient when free. The patient moves out of the queue automatically, so two physios never call the same person."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does physiotherapy software cost in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Physio software is usually sold per clinician per month, and practice management is priced separately from exercise prescription, so covering both typically means two subscriptions. Moovv combines them at ₹100 per active patient per month with a ₹499 monthly minimum and a 30-day free trial."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ?v= busts any copy cached under the old immutable 1-year header.
+       Bump this whenever styles.css or main.js changes materially. -->
+  <link rel="stylesheet" href="css/styles.css?v=2">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="images/Logo.svg" alt="moovv.fit" class="nav-logo-img">
+        <span class="nav-logo-tag">for physios</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#grow">Grow your practice</a></li>
+        <li><a href="#clinics">For clinics</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#compare">Compare</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="https://clinic.moovv.fit/login" class="nav-login" rel="noopener noreferrer">Login</a></li>
+      </ul>
+
+      <a href="#get-started" class="btn-nav-cta">get started — free</a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="container hero-content hero-layout">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Built with physiotherapists, for physiotherapists</p>
+        <h1>Grow your practice.<br>Not your paperwork.</h1>
+        <p class="hero-subtitle">Moovv gives your clinic appointment booking, world-class exercise prescriptions,
+          telehealth sessions and AI-powered patient insights — so every patient stays on track between visits, and
+          your practice grows beyond your four walls.</p>
+
+        <div class="hero-ctas">
+          <a href="#get-started" class="btn-primary">get started — free</a>
+          <a href="#get-started" class="btn-secondary" data-intent="demo">book a demo</a>
+        </div>
+
+        <p class="hero-trust">No credit card required. Onboard your first patient in minutes.</p>
+      </div>
+
+      <div class="hero-media">
+        <!-- The frame owns the size; the video is absolutely positioned inside it so its
+             1280px intrinsic width can never expand the grid column (Safari blowout). -->
+        <div class="video-frame">
+          <!-- Poster is a frame pulled from the video; swap for a designed 1600×900 image if preferred -->
+          <video class="hero-video" controls preload="none" playsinline
+            poster="images/hero-poster.jpg">
+            <source src="videos/physio-intro.mp4" type="video/mp4">
+            Your browser doesn't support embedded video.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof strip -->
+  <section class="proof-strip">
+    <div class="container proof-grid">
+      <div class="proof-item">
+        <strong>1,000+</strong>
+        <span>exercise videos, physio-reviewed</span>
+      </div>
+      <div class="proof-item">
+        <strong>2 minutes</strong>
+        <span>from assessment to prescribed plan</span>
+      </div>
+      <div class="proof-item">
+        <strong>Daily</strong>
+        <span>pain &amp; adherence signals from every patient</span>
+      </div>
+      <div class="proof-item">
+        <strong>Telehealth</strong>
+        <span>built in — no extra tools needed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <p class="section-eyebrow">Get to know Moovv for Physios</p>
+      <h2 class="section-title">Everything your practice needs, in one place</h2>
+      <p class="section-subtitle">Built for solo practitioners, ready for clinics.</p>
+
+      <div class="feature-grid">
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+              <path d="M9 16l2 2 4-4" />
+            </svg>
+          </div>
+          <h3>Appointment booking</h3>
+          <p>Patients book slots that fit your calendar — in-clinic visits or telehealth sessions, each on its own booking track. Reminders reduce no-shows without you lifting a finger.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+              <path d="M9 7h6M9 11h6" />
+            </svg>
+          </div>
+          <h3>High-quality exercise prescriptions</h3>
+          <p>Prescribe from a physio-reviewed library of HD exercise videos with sets, reps, holds and progressions — in a couple of clicks, not a couple of printouts.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <path d="M12 18v-6M9 15l3 3 3-3" />
+            </svg>
+          </div>
+          <h3>Export prescriptions as PDF</h3>
+          <p>One click turns any plan into a clean, branded PDF — for patients who prefer paper, referring doctors, or insurance paperwork.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+            </svg>
+          </div>
+          <h3>Plan notes for patients</h3>
+          <p>Attach guidance, precautions and encouragement right where patients see their exercises — so your clinical voice travels home with them.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+          </div>
+          <h3>Pain &amp; adherence tracking</h3>
+          <p>Patients log pain and completion in the Moovv app after every session. You see who's improving, who's struggling and who's gone quiet — before the next visit.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a7 7 0 0 1 7 7c0 2.4-1.2 4.2-2.6 5.6-.8.8-1.4 1.9-1.4 3v.4H9v-.4c0-1.1-.6-2.2-1.4-3C6.2 13.2 5 11.4 5 9a7 7 0 0 1 7-7z" />
+              <path d="M9 21h6M10 23h4" />
+            </svg>
+          </div>
+          <h3>AI insights</h3>
+          <p>Moovv's AI reads pain trends and adherence patterns across your caseload and surfaces the patients who need your attention — with suggested next steps.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              <path d="M13 8l2 2-2 2" />
+            </svg>
+          </div>
+          <h3>1-click messaging</h3>
+          <p>Check in on a patient with a single tap using smart, context-aware messages — no typing the same "how's the knee feeling?" twenty times a day.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3>Your whole team, one clinic</h3>
+          <p>Add every physio in your practice and give your front desk their own receptionist login with its own permissions. Run several locations under one account and move physios between them as your rota changes.</p>
+        </div>
+
+        <div class="glass-panel feature-card">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <circle cx="3.5" cy="6" r="1.5" />
+              <circle cx="3.5" cy="12" r="1.5" />
+              <circle cx="3.5" cy="18" r="1.5" />
+            </svg>
+          </div>
+          <h3>Walk-in queue management</h3>
+          <p>Reception adds walk-ins to the day's queue with a name, number and note. Physios see who's waiting and pick the next patient when they're free — no shouting across the clinic, no paper register.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grow Your Practice (Telehealth) Section -->
+  <section class="grow" id="grow">
+    <div class="container grow-layout">
+      <div class="grow-copy">
+        <p class="section-eyebrow">Grow your practice</p>
+        <h2 class="section-title">Your clinic has walls.<br>Your practice doesn't have to.</h2>
+        <p>Your expertise isn't limited to patients who can reach your clinic. Moovv lets you run a full
+          <strong>telehealth practice alongside your in-clinic one</strong> — telehealth patients book, pay and join
+          from the app, and you consult from anywhere.</p>
+
+        <ul class="grow-list">
+          <li>
+            <strong>Augment your in-clinic revenue.</strong>
+            <span>Fill gaps in your schedule with a second stream of paid telehealth consults.</span>
+          </li>
+          <li>
+            <strong>Deliver the full episode of care remotely.</strong>
+            <span>Assessment, prescriptions, tracking and follow-ups — telehealth patients get end-to-end care in one path.</span>
+          </li>
+          <li>
+            <strong>Reach beyond your city.</strong>
+            <span>Take on patients anywhere — they get the same app, plans and tracking as your in-clinic caseload.</span>
+          </li>
+          <li>
+            <strong>Walk into every consult prepared.</strong>
+            <span>Pain and adherence data from the app means every session starts with evidence, not "so, how has it been?"</span>
+          </li>
+        </ul>
+
+        <a href="#get-started" class="btn-primary">start offering telehealth</a>
+      </div>
+
+      <div class="grow-media">
+        <img class="section-img section-img--tall" src="images/screens/telehealth-session.jpg"
+          alt="A physiotherapist running a telehealth session in Moovv" width="820" height="840" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <p class="section-eyebrow">How it works</p>
+      <h2 class="section-title">From assessment to adherence, in four steps</h2>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-number">1</span>
+          <img class="step-img" src="images/screens/step-1-add-patient.png"
+            alt="Adding a patient in the Moovv physio portal" width="1200" height="620" loading="lazy">
+          <h3>Onboard your patient</h3>
+          <p>Add a patient in seconds. They get the Moovv app with your clinic's plan waiting inside.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-number">2</span>
+          <img class="step-img" src="images/screens/step-2-prescribe.png"
+            alt="Building an exercise prescription in the Moovv physio portal" width="1200" height="838" loading="lazy">
+          <h3>Prescribe in minutes</h3>
+          <p>Build a plan from the exercise library, add your notes, set the schedule — or export it as a PDF.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-number">3</span>
+          <img class="step-img" src="images/screens/step-3-patient-app.png"
+            alt="A patient following their exercise plan in the Moovv app" width="445" height="900" loading="lazy">
+          <h3>Patients follow along at home</h3>
+          <p>Guided video sessions with reminders. Pain and completion logged after every workout.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-number">4</span>
+          <img class="step-img" src="images/screens/step-4-insights.png"
+            alt="AI insights flagging patients who need attention" width="1200" height="652" loading="lazy">
+          <h3>Track, adjust, follow up</h3>
+          <p>AI insights flag who needs attention. Message them in one click or book a telehealth follow-up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- For Clinics & Chains Section -->
+  <section class="clinics" id="clinics">
+    <div class="container clinics-layout">
+      <div class="clinics-media">
+        <img class="section-img" src="images/screens/org-dashboard.png"
+          alt="Moovv organisation dashboard showing metrics across physios" width="1600" height="960" loading="lazy">
+      </div>
+
+      <div class="clinics-copy">
+        <p class="section-eyebrow">For clinics &amp; chains</p>
+        <h2 class="section-title">Run one clinic or twenty — see everything</h2>
+        <p>If you manage physios across one or more locations, Moovv gives you an organisation view on top of every
+          practitioner's workspace — and the front-desk tools to run the day.</p>
+
+        <ul class="grow-list">
+          <li>
+            <strong>Invite your whole team.</strong>
+            <span>Add every physio in the practice and give reception their own login with its own permissions. No per-seat charge — you pay for patients treated, not people employed.</span>
+          </li>
+          <li>
+            <strong>Multiple locations, one account.</strong>
+            <span>Create each clinic, assign physios to it, and move them between locations as your rota changes.</span>
+          </li>
+          <li>
+            <strong>A queue that keeps the day moving.</strong>
+            <span>Reception logs walk-ins; physios pick the next waiting patient from their own screen.</span>
+          </li>
+          <li>
+            <strong>High-level metrics per physio.</strong>
+            <span>Caseloads, sessions delivered, patient adherence and outcomes — across your whole team.</span>
+          </li>
+          <li>
+            <strong>Consistent quality of care.</strong>
+            <span>Shared exercise libraries and plan templates keep every prescription up to your standard.</span>
+          </li>
+          <li>
+            <strong>Spot growth opportunities.</strong>
+            <span>See which locations and physios have telehealth capacity to fill.</span>
+          </li>
+        </ul>
+
+        <a href="#get-started" class="btn-secondary" data-intent="demo">talk to us about your clinic</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinic chains marquee — HIDDEN until chains are onboarded.
+       To enable: remove the `hidden` attribute and replace the placeholder tiles
+       with real logos: <img src="images/chains/<name>.png" alt="<Chain name>"> -->
+  <section class="chains-strip" id="chains" hidden>
+    <div class="container">
+      <p class="chains-title">Clinic chains growing with Moovv</p>
+    </div>
+    <div class="chains-marquee" aria-hidden="true">
+      <div class="chains-track">
+        <div class="chains-group">
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+        </div>
+        <div class="chains-group">
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+          <div class="chain-tile">Chain logo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Pay for the patients you treat. Nothing more.</h2>
+      <p class="section-subtitle">Start free for 30 days — no credit card required.</p>
+
+      <div class="currency-toggle" role="group" aria-label="Currency">
+        <button class="currency-btn active" data-currency="inr" aria-pressed="true">₹ INR</button>
+        <button class="currency-btn" data-currency="usd" aria-pressed="false">$ USD</button>
+      </div>
+
+      <!-- USD amounts are placeholder conversions — confirm before launch -->
+      <div class="pricing-grid pricing-grid--two">
+        <div class="glass-panel pricing-card pricing-card--featured">
+          <span class="pricing-badge">30 days free</span>
+          <h3>Solo practice</h3>
+          <p class="pricing-tagline">For independent physios and solo clinics</p>
+          <div class="pricing-amount">
+            <span class="price" data-inr="₹100" data-usd="$1.05">₹100</span>
+            <span class="pricing-period">/ active patient / month</span>
+          </div>
+          <p class="pricing-min">Minimum <span data-inr="₹499" data-usd="$5.25">₹499</span>/month — your bill grows only as your caseload does.</p>
+          <ul class="pricing-features">
+            <li>Unlimited patients — pay per active patient</li>
+            <li>Exercise prescriptions, plan notes &amp; PDF export</li>
+            <li>Appointment booking &amp; telehealth sessions</li>
+            <li>Pain &amp; adherence tracking</li>
+            <li>AI insights &amp; 1-click messaging</li>
+            <li>Walk-in queue &amp; receptionist login</li>
+          </ul>
+          <a href="#get-started" class="btn-primary pricing-cta">start 30-day free trial</a>
+        </div>
+
+        <div class="glass-panel pricing-card">
+          <h3>Clinic &amp; Chain</h3>
+          <p class="pricing-tagline">For multi-physio clinics and chains</p>
+          <div class="pricing-amount">
+            <span class="price" data-inr="Custom" data-usd="Custom">Custom</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Everything in Solo practice</li>
+            <li>Unlimited physios &amp; reception staff</li>
+            <li>Multiple locations under one account</li>
+            <li>Organisation dashboard &amp; physio metrics</li>
+            <li>Shared libraries &amp; plan templates</li>
+            <li>Volume pricing across locations</li>
+          </ul>
+          <a href="#get-started" class="btn-secondary pricing-cta" data-intent="demo">book a demo</a>
+        </div>
+      </div>
+
+      <p class="pricing-note">USD prices are indicative. All prices exclusive of applicable taxes.</p>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="compare" id="compare">
+    <div class="container">
+      <p class="section-eyebrow">How Moovv compares</p>
+      <h2 class="section-title">One platform instead of two subscriptions</h2>
+      <p class="section-subtitle">
+        Most physio software solves half the problem. Practice-management tools handle your calendar but
+        can't prescribe exercises. Exercise-prescription tools build beautiful home programmes but can't
+        book an appointment or run a telehealth consult. Moovv does both — and adds the patient app that
+        tells you what's actually happening between visits, plus the team and front-desk tools to run
+        the clinic day.
+      </p>
+
+      <div class="compare-scroll">
+        <table class="compare-table">
+          <caption class="visually-hidden">
+            Feature comparison between typical physiotherapy software and Moovv for Physios
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Other physio software</th>
+              <th scope="col" class="compare-us">Moovv</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Appointment booking &amp; reminders</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Practice-management tools only</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Exercise prescription with HD video</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Prescription tools only</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Export prescriptions as branded PDF</th>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Plan notes attached to the patient's exercises</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Patient mobile app with guided sessions</th>
+              <td><span class="mark mark--no" role="img" aria-label="No">✕</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Daily pain logging by the patient</th>
+              <td><span class="mark mark--no" role="img" aria-label="No">✕</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Adherence tracking between visits</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Self-reported at best</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Telehealth sessions with booking &amp; payments built in</th>
+              <td><span class="mark mark--no" role="img" aria-label="No">✕</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">AI insights across your whole caseload</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Mostly AI note-taking</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">1-click contextual patient messaging</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Generic bulk reminders</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Walk-in queue for the front desk</th>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Receptionist logins with their own permissions</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Counts against your user cap</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Unlimited physios and staff on one account</th>
+              <td><span class="mark mark--no" role="img" aria-label="No">✕</span><span class="mark-note">Capped per tier — typically 2 to 20 users</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Multiple clinic locations under one account</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Top tier, often capped at 3 branches</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Organisation dashboard for clinic chains</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">Top paid tier only</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Pay for patients treated, not seats booked</th>
+              <td><span class="mark mark--no" role="img" aria-label="No">✕</span><span class="mark-note">Per-user subscription</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Free trial</th>
+              <td><span class="mark mark--partial" role="img" aria-label="Partial">◐</span><span class="mark-note">14–15 days typical</span></td>
+              <td><span class="mark mark--yes" role="img" aria-label="Yes">✓</span><span class="mark-note">30 days</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="compare-value">
+        <h3>The cost of covering the same ground</h3>
+        <p>
+          Because practice management and exercise prescription are sold separately, a solo physio who
+          wants both ends up paying for two subscriptions. Priced from the vendors' own published plans:
+        </p>
+        <ul class="compare-stack">
+          <li>
+            <span class="compare-stack-label">Practice-management tool, paid tier</span>
+            <span class="compare-stack-price">≈ ₹999<small>/month</small></span>
+          </li>
+          <li>
+            <span class="compare-stack-label">Exercise-prescription tool, solo plan</span>
+            <span class="compare-stack-price">≈ ₹1,424<small>/month</small></span>
+          </li>
+          <li class="compare-stack-total">
+            <span class="compare-stack-label">Two tools, still no patient app or telehealth</span>
+            <span class="compare-stack-price">≈ ₹2,423<small>/month</small></span>
+          </li>
+          <li class="compare-stack-us">
+            <span class="compare-stack-label">Moovv — everything above, one subscription</span>
+            <span class="compare-stack-price">from ₹499<small>/month</small></span>
+          </li>
+        </ul>
+        <p class="compare-footnote">
+          Comparison compiled July 2026 from publicly listed pricing for
+          <a href="https://gritup.io/pricing" target="_blank" rel="noopener noreferrer nofollow">GritUp</a>
+          (₹999/month Pro) and
+          <a href="https://www.simpleset.net/pricing" target="_blank" rel="noopener noreferrer nofollow">SimpleSet</a>
+          (US$14.99/clinician/month Solo, converted at ₹95/US$). Moovv is ₹100 per active
+          patient per month with a ₹499 monthly minimum, so a physio treating five active patients pays
+          ₹499. Vendors change plans and features — check their current pricing before deciding. Product
+          names and trademarks belong to their respective owners; Moovv is not affiliated with, endorsed
+          by, or partnered with them.
+        </p>
+        <a href="#get-started" class="btn-primary">start your 30-day free trial</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section — HIDDEN until real testimonials are available.
+       To enable: remove the `hidden` attribute and fill in real quotes below. -->
+  <section class="testimonials" id="testimonials" hidden>
+    <div class="container">
+      <p class="section-eyebrow">What physios say</p>
+      <h2 class="section-title">Fall back in love with your practice</h2>
+
+      <!-- PLACEHOLDER TESTIMONIALS: replace with real physio quotes, names and clinics -->
+      <div class="testimonial-grid">
+        <div class="glass-panel testimonial-card">
+          <p>"Placeholder testimonial — a short quote about time saved on prescriptions and follow-ups."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true"></div>
+            <div>
+              <strong>Physio name</strong>
+              <span>Clinic, City</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-panel testimonial-card">
+          <p>"Placeholder testimonial — a short quote about patients actually doing their home exercises."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true"></div>
+            <div>
+              <strong>Physio name</strong>
+              <span>Clinic, City</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-panel testimonial-card">
+          <p>"Placeholder testimonial — a short quote about growing revenue with telehealth sessions."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true"></div>
+            <div>
+              <strong>Physio name</strong>
+              <span>Clinic, City</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <div class="faq-list">
+        <div class="faq-item active">
+          <button class="faq-question" aria-expanded="true">
+            <span class="faq-number">1.</span>
+            <span class="faq-text">Do my patients need to pay for the Moovv app?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>No. Patients you onboard get the Moovv app as part of your care — their plans, exercise videos, reminders and pain tracking are included with your subscription.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">2.</span>
+            <span class="faq-text">How do telehealth payments work?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>You set your session price. Patients book and pay through the app, and the session lands on your calendar. You focus on the consult; we handle the plumbing.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">3.</span>
+            <span class="faq-text">Can my in-clinic patients also book telehealth sessions?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Not currently — in-clinic appointments and telehealth sessions run as two separate booking paths. An in-clinic patient books clinic visits; a telehealth patient books remote sessions. Both get the same app, plans and tracking.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">4.</span>
+            <span class="faq-text">Can I use my own exercise protocols?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Start from our physio-reviewed library, adjust sets, reps, holds and progressions, and save your own plan templates so your next prescription takes seconds.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">5.</span>
+            <span class="faq-text">What happens to patients who don't use smartphones?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Export any prescription as a clean PDF with exercise images and instructions — print it or share it however your patient prefers.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">6.</span>
+            <span class="faq-text">Is my patients' data private?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Patient data is encrypted, used only to deliver care, and never sold. You control who on your team can see which patients.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">7.</span>
+            <span class="faq-text">How is Moovv different from SimpleSet or other exercise-prescription software?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Exercise-prescription tools like SimpleSet are good at what they do — building and printing home exercise programmes. They don't book appointments, run telehealth consults, or tell you whether the patient actually did the work. Moovv covers prescription <em>and</em> scheduling <em>and</em> telehealth, and the patient app reports pain and completion back to you daily. You also pay per active patient rather than a fixed per-clinician seat.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">8.</span>
+            <span class="faq-text">Is there an Indian alternative to GritUp for physiotherapy clinics?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Moovv is built in India, priced in rupees, and designed around how Indian physio practices actually run. Where practice-management platforms such as GritUp focus on scheduling, billing and clinic admin, Moovv adds the clinical side — a physio-reviewed exercise library, prescriptions your patients follow in an app, pain and adherence tracking, and built-in telehealth. Clinic chains get an organisation dashboard across every physio.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">9.</span>
+            <span class="faq-text">Why is per-patient pricing better value than a per-clinician subscription?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>A per-seat subscription costs the same whether you treated forty patients last month or four. Moovv charges ₹100 per active patient per month with a ₹499 minimum, so a physio building their caseload pays ₹499 while a busy clinic pays in proportion to the work coming in. Because prescription, booking and telehealth are all included, you also avoid paying two vendors to cover one workflow.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">10.</span>
+            <span class="faq-text">Can I add my other physios and a receptionist?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, and there is no per-seat charge. Invite every physio in your practice and give your front desk a receptionist login with its own permissions — they can add walk-ins to the queue, book and reschedule sessions, but don't get clinical access. If you run more than one location, create each clinic and move physios between them as your rota changes. Because you pay per active patient, adding staff never increases your bill.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">11.</span>
+            <span class="faq-text">How does the walk-in queue work?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Reception adds each walk-in to the day's queue with a name, phone number and a short note. Every physio sees who is waiting on their own screen and picks the next patient when they're free — the patient moves out of the queue automatically, so two physios never call the same person.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">12.</span>
+            <span class="faq-text">How long does it take to get set up?</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Minutes, not weeks. Sign up, add your first patient, and prescribe your first plan the same day. Clinics and chains get guided onboarding for the whole team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Started / Onboarding Form Section -->
+  <section class="cta" id="get-started">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <h2>Ready to grow your practice?</h2>
+        <p class="cta-subtitle">Tell us about yourself and we'll set you up — or book a demo and we'll walk you through it.</p>
+
+        <form class="onboard-form" id="onboardForm" action="https://formspree.io/f/mrenopol" method="POST">
+          <input type="text" name="_gotcha" style="display:none">
+
+          <div class="form-row">
+            <label>
+              <span>Your name</span>
+              <input type="text" name="name" placeholder="Dr. Priya Sharma" required>
+            </label>
+            <label>
+              <span>Clinic / practice name</span>
+              <input type="text" name="clinic" placeholder="MoveWell Physio, Pune">
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="you@clinic.com" required>
+            </label>
+            <label>
+              <span>Phone / WhatsApp</span>
+              <input type="tel" name="phone" placeholder="+91 98765 43210">
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label>
+              <span>Practice size</span>
+              <select name="practice_size">
+                <option value="solo">Just me</option>
+                <option value="small">2–5 physios</option>
+                <option value="clinic">6–20 physios</option>
+                <option value="chain">Multiple locations / chain</option>
+              </select>
+            </label>
+            <label>
+              <span>I'm interested in</span>
+              <select name="intent" id="intentSelect">
+                <option value="get_started">Getting started</option>
+                <option value="demo">Booking a demo</option>
+              </select>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary btn-form-submit">request access</button>
+          <p class="form-agreement">We'll only use these details to contact you about Moovv. No spam, ever.</p>
+        </form>
+
+        <div class="form-success" id="formSuccess" hidden>
+          <h3>Thanks — you're on the list! 🎉</h3>
+          <p>We'll reach out within one working day to get you set up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p class="footer-tagline">Moovv for Physios. Grow your practice, keep patients moving.</p>
+          <a href="#" class="footer-logo">
+            <img src="images/Logo.svg" alt="Moovv" class="nav-logo-img">
+          </a>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+                <a href="https://clinic.moovv.fit/login" rel="noopener noreferrer">Physio login</a>
+          </div>
+          <div class="footer-column">
+            <h4>For patients</h4>
+            <a href="https://www.moovv.fit" target="_blank" rel="noopener noreferrer">moovv.fit</a>
+          </div>
+          <div class="footer-column">
+            <h4>Contact</h4>
+            <a href="mailto:hello@moovv.fit">hello@moovv.fit</a>
+          </div>
+          <!-- The physio-facing legal pages, not the consumer ones at
+               www.moovv.fit: these allocate responsibility between the physio
+               and the platform, which the patient terms do not cover. -->
+          <div class="footer-column">
+            <h4>Legal</h4>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+</body>
+
+</html>

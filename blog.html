@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Read the latest insights on mobility, recovery, and living pain-free from moovv.fit.">
+  <meta name="theme-color" content="#07060D">
+
+  <link rel="icon" type="image/svg+xml" href="images/Logo_Icon.svg">
+  <link rel="apple-touch-icon" href="images/Logo_Icon.svg">
+
+  <title>Blog | moovv.fit</title>
+
+  <link rel="stylesheet" href="css/styles.css?v=20260911">
+  <style>
+    .blog-page {
+      padding: 150px 0 100px;
+      background: var(--bg-dark-1);
+      min-height: 100vh;
+      color: var(--white-80);
+    }
+    .blog-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .blog-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .blog-header h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(40px, 6vw, 56px);
+      color: var(--white-100);
+      margin-bottom: 16px;
+    }
+    .blog-header p {
+      font-size: 18px;
+      color: var(--white-80);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Blog Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .blog-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .blog-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: rgba(0,0,0,0.5);
+    }
+    .blog-card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .blog-card-date {
+      font-size: 14px;
+      color: var(--success-green);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .blog-card-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      color: var(--white-100);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .blog-card-excerpt {
+      font-size: 15px;
+      color: var(--white-60);
+      line-height: 1.5;
+      margin-bottom: 24px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-card-footer {
+      margin-top: auto;
+      font-weight: 600;
+      color: var(--white-100);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Article Reader Mode */
+    #blog-reader {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.02);
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .back-btn {
+      background: transparent;
+      border: none;
+      color: var(--white-60);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      margin-bottom: 32px;
+      transition: color 0.3s;
+    }
+    .back-btn:hover {
+      color: var(--white-100);
+    }
+    
+    .article-title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 5vw, 48px);
+      color: var(--white-100);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .article-meta {
+      color: var(--success-green);
+      margin-bottom: 40px;
+      font-size: 15px;
+    }
+    .article-cover {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 40px;
+    }
+    .article-content {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--white-80);
+    }
+    .article-content h1, 
+    .article-content h2, 
+    .article-content h3 {
+      color: var(--white-100);
+      font-family: var(--font-heading);
+      margin-top: 40px;
+      margin-bottom: 16px;
+    }
+    .article-content p {
+      margin-bottom: 24px;
+    }
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 32px 0;
+    }
+    .article-content a {
+      color: var(--success-green);
+    }
+
+    .loader {
+      text-align: center;
+      padding: 60px;
+      font-size: 18px;
+      color: var(--white-60);
+    }
+  </style>
+
+  <!-- PostHog Analytics -->
+  <script>
+    !function(t,e){var o,n,p,r;e._SV||(window.posthog && window.posthog.loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ai Ri init Vi Yi Rr zi Gi Zi capture calculateEventProperties en register register_once register_for_session unregister unregister_for_session sn getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync an identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty rn Ki createPersonProfile setInternalOrTestUser nn $i hn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Xi debug Mr tn getPageViewId captureTraceFeedback captureTraceMetric Di".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e._SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_t8CvRG25be6KgktQfwYD2ybwCdDeMo3PqHgUThJjqTem', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'identified_only',
+    })
+  </script>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav" style="background: rgba(7, 6, 13, 0.95); backdrop-filter: blur(10px);">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/Logo.svg" alt="moovv.fit" class="nav-logo-img">
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#features-science">Expert Recovery</a></li>
+        <li><a href="index.html#how-it-works">Moovv in action</a></li>
+        <li><a href="https://physio.moovv.fit" target="_blank" rel="noopener noreferrer">For Physios</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#faq">FAQs</a></li>
+      </ul>
+      <a href="index.html#cta" class="btn-nav-cta" data-download-link data-placement="nav">get the app</a>
+    </div>
+  </nav>
+
+  <main class="blog-page">
+    <div class="blog-container">
+      
+      <!-- Blog List View -->
+      <div id="blog-list-view">
+        <div class="blog-header">
+          <h1>The Mobility Journal</h1>
+          <p>Expert insights, recovery stories, and the science of moving better, written by the moovv.fit team.</p>
+        </div>
+
+        <div id="loader" class="loader">Loading articles...</div>
+        <div id="blog-grid" class="blog-grid"></div>
+      </div>
+
+      <!-- Single Article Reader -->
+      <div id="blog-reader">
+        <button class="back-btn" onclick="showBlogList()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to all articles
+        </button>
+        <img id="article-img" class="article-cover" src="" alt="Cover" style="display:none;">
+        <h1 id="article-title" class="article-title"></h1>
+        <div id="article-meta" class="article-meta"></div>
+        <div id="article-content" class="article-content"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p class="footer-tagline">Your journey to better mobility starts with understanding.</p>
+          <a href="index.html" class="footer-logo">
+            <img src="images/Logo.svg" alt="moovv.fit" class="nav-logo-img">
+          </a>
+        </div>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="support.html">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // RSS to JSON API - using a placeholder medium feed for demonstration
+    // You can replace this RSS_URL with your Substack or Medium RSS link!
+    // Example Substack: https://moovvfit.substack.com/feed
+    const RSS_URL = 'https://medium.com/feed/@medium';
+    const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+
+    let posts = [];
+
+    async function fetchBlogPosts() {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        
+        if (data.status === 'ok') {
+          posts = data.items;
+          renderBlogCards(posts);
+        } else {
+          showError("Could not load blog posts right now.");
+        }
+      } catch (error) {
+        showError("Error connecting to the blog server.");
+        console.error(error);
+      }
+    }
+
+    function renderBlogCards(items) {
+      const grid = document.getElementById('blog-grid');
+      const loader = document.getElementById('loader');
+      
+      loader.style.display = 'none';
+      grid.innerHTML = '';
+
+      items.forEach((item, index) => {
+        // Strip HTML from description for excerpt
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = item.description;
+        const excerpt = tempDiv.textContent || tempDiv.innerText || "";
+        
+        // Format date
+        const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        // Use thumbnail or extract first image from content
+        let imgUrl = item.thumbnail;
+        if (!imgUrl) {
+           const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+           imgUrl = imgMatch ? imgMatch[1] : 'images/og-image.png'; // fallback image
+        }
+
+        const card = document.createElement('div');
+        card.className = 'blog-card';
+        card.onclick = () => showArticle(index);
+        card.innerHTML = `
+          <img src="${imgUrl}" alt="${item.title}" class="blog-card-img">
+          <div class="blog-card-content">
+            <div class="blog-card-date">${date}</div>
+            <h3 class="blog-card-title">${item.title}</h3>
+            <p class="blog-card-excerpt">${excerpt.substring(0, 120)}...</p>
+            <div class="blog-card-footer">Read article <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function showArticle(index) {
+      const item = posts[index];
+      const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      // Populate Reader
+      document.getElementById('article-title').textContent = item.title;
+      document.getElementById('article-meta').textContent = `${item.author} • ${date}`;
+      document.getElementById('article-content').innerHTML = item.content;
+
+      // Extract image
+      let imgUrl = item.thumbnail;
+      if (!imgUrl) {
+          const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+          imgUrl = imgMatch ? imgMatch[1] : '';
+      }
+      
+      const imgEl = document.getElementById('article-img');
+      if (imgUrl) {
+        imgEl.src = imgUrl;
+        imgEl.style.display = 'block';
+      } else {
+        imgEl.style.display = 'none';
+      }
+
+      // Switch views
+      document.getElementById('blog-list-view').style.display = 'none';
+      document.getElementById('blog-reader').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showBlogList() {
+      document.getElementById('blog-reader').style.display = 'none';
+      document.getElementById('blog-list-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showError(msg) {
+      const loader = document.getElementById('loader');
+      loader.textContent = msg;
+    }
+
+    // Initialize
+    fetchBlogPosts();
+  </script>
+  <script src="js/store-links.js"></script>
+</body>
+</html>
