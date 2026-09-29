@@ -18,93 +18,81 @@ on:
     inputs:
       environment:
         description: 'Target environment'
-        required: true
+        required: false
         type: string
+        default: production
 
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Target environment'
-        required: true
-        type: choice
-        options:
-          - staging
-          - production
-        default: staging
       confirmation:
-        description: 'Type "DEPLOY_PROD" for production'
-        required: false
+        description: 'Type "DEPLOY" to confirm'
+        required: true
         type: string
+
+concurrency:
+  group: deploy-landing-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
   id-token: write
 
 jobs:
-  setup:
+  validate:
+    name: Validate
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    outputs:
-      environment: ${{ steps.env.outputs.environment }}
     steps:
-      - name: Determine environment
-        id: env
+      - name: Validate confirmation
         run: |
-          if [ "${{ inputs.environment }}" != "" ]; then
-            echo "environment=${{ inputs.environment }}" >> $GITHUB_OUTPUT
-          else
-            echo "environment=staging" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Validate production deployment
-        if: steps.env.outputs.environment == 'production' && github.event_name == 'workflow_dispatch'
-        run: |
-          if [ "${{ github.event.inputs.confirmation }}" != "DEPLOY_PROD" ]; then
-            echo "❌ Production requires 'DEPLOY_PROD' confirmation"
+          if [ "${{ github.event.inputs.confirmation }}" != "DEPLOY" ]; then
+            echo "❌ Deployment requires confirmation 'DEPLOY'"
             exit 1
           fi
 
   deploy:
-    needs: setup
+    name: Deploy to Production
+    needs: [validate]
+    if: always() && (needs.validate.result == 'success' || needs.validate.result == 'skipped')
     runs-on: ubuntu-latest
-    environment: ${{ needs.setup.outputs.environment }}
+    environment: production
     steps:
       - uses: actions/checkout@v4
 
-      - uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::855246887543:role/moovv-fit-github-actions-release-role
           aws-region: ap-south-1
 
       - name: Get CloudFront Distribution ID
         id: cf
         run: |
           DIST_ID=$(aws ssm get-parameter \
-            --name "/moovv-fit/${{ needs.setup.outputs.environment }}/landing_cloudfront_distribution_id" \
+            --name "/moovv-fit/production/landing_cloudfront_distribution_id" \
             --query "Parameter.Value" \
             --output text)
           echo "distribution_id=$DIST_ID" >> $GITHUB_OUTPUT
 
-      - name: Set S3 bucket name
-        id: bucket
-        run: |
-          echo "name=moovv-fit-content-${{ needs.setup.outputs.environment }}" >> $GITHUB_OUTPUT
-
       - name: Sync to S3
         run: |
-          aws s3 sync . s3://${{ steps.bucket.outputs.name }}/web/landing/ \
+          # Sync all assets with long cache
+          aws s3 sync . s3://moovv-fit-content-production/web/landing/ \
             --delete \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude "*.md" \
             --exclude ".gitignore" \
+            --exclude ".release-please-manifest.json" \
+            --exclude "release-please-config.json" \
             --cache-control "public, max-age=31536000, immutable" \
             --metadata-directive REPLACE
 
-          # HTML files should have shorter cache
-          aws s3 sync . s3://${{ steps.bucket.outputs.name }}/web/landing/ \
+          # HTML files with shorter cache (5 min)
+          aws s3 sync . s3://moovv-fit-content-production/web/landing/ \
             --exclude "*" \
             --include "*.html" \
+            --include "for-physios/*.html" \
             --cache-control "public, max-age=300" \
             --metadata-directive REPLACE
 
@@ -116,12 +104,9 @@ jobs:
 
       - name: Summary
         run: |
-          echo "## ✅ Deployed to ${{ needs.setup.outputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "## ✅ Landing Deployed to Production" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **S3**: s3://${{ steps.bucket.outputs.name }}/web/landing/" >> $GITHUB_STEP_SUMMARY
+          echo "- **S3**: s3://moovv-fit-content-production/web/landing/" >> $GITHUB_STEP_SUMMARY
           echo "- **CloudFront**: ${{ steps.cf.outputs.distribution_id }}" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ needs.setup.outputs.environment }}" == "production" ]; then
-            echo "- **URL**: https://www.moovv.fit" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "- **URL**: https://www.staging.moovv.fit" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "- **URL**: https://www.moovv.fit" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
