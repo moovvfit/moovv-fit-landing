@@ -1177,7 +1177,8 @@ section[hidden] {
 }
 
 .faq-list {
-  max-width: 840px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .faq-item {
