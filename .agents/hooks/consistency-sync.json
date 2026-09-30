@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Landing Page Consistency Sync",
+      "trigger": "PostFileSave",
+      "description": "Tracks file edits for cross-page consistency",
+      "matcher": "(index|privacy|terms)\\.html$|css/styles\\.css$",
+      "action": {
+        "type": "agent",
+        "prompt": "CONSISTENCY CHECK: 1. Log the edited file path. 2. If file is root index.html → check if for-physios/index.html and for-clinics/index.html need similar nav/footer updates. 3. If file is css/styles.css → check if for-physios/css/styles.css and for-clinics/css/styles.css need the same changes. 4. If file is privacy.html or terms.html → check if sub-landing versions need updates. Response: '📝 Logged: {filepath}' + any sync recommendations."
+      }
+    }
+  ]
+}

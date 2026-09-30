@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Session End Audit",
+      "trigger": "Stop",
+      "description": "End-of-session audit for consistency and commit",
+      "action": {
+        "type": "agent",
+        "prompt": "TASK END AUDIT: 1. Check if HTML files were modified → verify nav/footer consistency across all pages. 2. Check if CSS was modified → verify for-physios and for-clinics have matching updates if needed. 3. Check if images were added → verify alt text and optimization. 4. Ask: 'Commit changes? (y/n)'. If yes, suggest a concise commit message based on the changes made."
+      }
+    }
+  ]
+}
