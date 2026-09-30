@@ -966,7 +966,6 @@ section[hidden] {
 .compare-value > p {
   color: var(--white-80);
   font-size: 16px;
-  max-width: 720px;
   margin-bottom: 28px;
 }
 
@@ -976,7 +975,6 @@ section[hidden] {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 24px;
-  max-width: 640px;
 }
 
 .compare-stack li {
@@ -1030,7 +1028,6 @@ section[hidden] {
   font-size: 12px;
   line-height: 1.6;
   color: var(--white-60);
-  max-width: 760px;
   margin-bottom: 24px;
 }
 
