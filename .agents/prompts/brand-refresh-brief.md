@@ -350,7 +350,7 @@ The current 7 FAQs are mostly good. Light edits + reorder for impact:
 Add a `<p>` line below the tagline: **"Made in [city], for the world."** — or whatever's true. Adds humanity that's missing.
 
 Add to footer (new column or row):
-- **Contact:** `admin@moovv.fit`
+- **Contact:** `hello@moovv.fit`
 - **For physios:** link to physio.moovv.fit
 - **Press:** `press@moovv.fit` (if applicable)
 
