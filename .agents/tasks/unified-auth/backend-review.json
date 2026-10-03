@@ -1,0 +1,18 @@
+{
+  "verdict": "APPROVED",
+  "findings": [
+    {
+      "label": "Self-booking fail-open when cognitoSub null",
+      "description": "Both booking handlers skip the self-booking check if either user's cognitoSub is null. A physio with a legacy record (null cognitoSub) could book themselves as a patient. Consider logging a warning when cognitoSub is missing and the check is skipped, or treating null-null as a blocking condition.",
+      "confidence": "confirmed",
+      "blocking": false
+    },
+    {
+      "label": "Pool A hardcoded fallback",
+      "description": "multiPoolVerifier.ts falls back to hardcoded Pool A ID ap-south-1_AulfstD9s when COGNITO_USER_POOL_ID is unset. This matches existing codebase pattern but means deployment without env vars silently targets production Pool A. No action required if intentional.",
+      "confidence": "confirmed",
+      "blocking": false
+    }
+  ],
+  "reviewDoc": "/mnt/workspace/src/moovv-fit-landing/.agents/tasks/unified-auth/backend-review.md"
+}

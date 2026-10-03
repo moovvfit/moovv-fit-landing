@@ -1,0 +1,16 @@
+{
+  "verdict": "APPROVED",
+  "findings": [
+    {
+      "label": "SecretValue.unsafePlainText for Google secret",
+      "severity": "low",
+      "description": "Using SecretValue.unsafePlainText(googleClientSecret) causes the SSM value to appear in the synthesized CloudFormation template. Not a runtime leak but the secret is visible in the template. Consider Secrets Manager with SecretValue.secretsManager() for cleaner pattern."
+    },
+    {
+      "label": "Default behavior cache policy deviates from spec",
+      "severity": "informational",
+      "description": "Design spec says patient origin should cache 1 day, but implementation uses CACHING_OPTIMIZED managed policy. The managed policy provides a 1-day default TTL anyway, so effectively compliant."
+    }
+  ],
+  "reviewDoc": "/mnt/workspace/src/moovv-fit-landing/.agents/tasks/unified-auth/infra-review.md"
+}
