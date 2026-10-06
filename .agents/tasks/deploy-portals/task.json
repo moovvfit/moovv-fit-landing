@@ -1,0 +1,7 @@
+{
+  "task_id": "task-deploy-portals",
+  "task_description": "Deploy existing React portals (admin, physio, clinic) and Flutter patient web app to staging. React portals require build and S3/CloudFront deployment. Flutter TASK-6.3 (feature flag) and TASK-6.4 (download app prompt) are already implemented - only web build and deploy needed. Update tasks.md to mark phases 3-6 complete.",
+  "status": "pending",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

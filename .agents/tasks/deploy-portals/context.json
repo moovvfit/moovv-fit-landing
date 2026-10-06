@@ -1,0 +1,31 @@
+{
+  "project_type": "Multi-repo deployment task spanning React web portals and Flutter patient app",
+  "language": "TypeScript (React), Dart (Flutter)",
+  "build_system": "pnpm + Vite for React; flutter build for Flutter",
+  "test_framework": "vitest for React, flutter test for Flutter (not required for this task)",
+  "build_command": "pnpm run build (React), flutter build web (Flutter)",
+  "test_command": "N/A - deployment task, CI/CD handles tests",
+  "verification_instructions": "Push changes to trigger CI/CD. React: push to moovv-fit-web triggers deploy-unified.yml. Flutter: use workflow_dispatch with platform=web or push staging tag.",
+  "snapshot_or_generated_files": null,
+  "environment_constraints": "DO NOT manually deploy to S3 - use GitHub Actions CI/CD. React: deploy-unified.yml with workflow_dispatch. Flutter: deploy.yml with platform=web.",
+  "contribution_requirements": "No code changes to React app - just trigger CI/CD. Flutter app TASK-6.3 and TASK-6.4 already implemented.",
+  "key_patterns": "React uses Vite with relative base path (./) - same build works at any subpath. Flutter uses Firebase Remote Config for feature flags with SHOW_WEB_LOGIN defaulting to false on web. Both repos have GitHub Actions for deployment.",
+  "relevant_files": [
+    "/mnt/workspace/src/moovv-fit-web/package.json",
+    "/mnt/workspace/src/moovv-fit-web/vite.config.ts",
+    "/mnt/workspace/src/moovv-fit-web/.env.development",
+    "/mnt/workspace/src/moovv-fit-web/.github/workflows/deploy-unified.yml",
+    "/mnt/workspace/src/moovv-fit-mobile/pubspec.yaml",
+    "/mnt/workspace/src/moovv-fit-mobile/web/index.html",
+    "/mnt/workspace/src/moovv-fit-mobile/.github/workflows/deploy.yml",
+    "/mnt/workspace/src/moovv-fit-mobile/lib/core/services/remote_config_service.dart",
+    "/mnt/workspace/src/moovv-fit-mobile/lib/core/router/app_router.dart",
+    "/mnt/workspace/src/moovv-fit-mobile/lib/features/auth/presentation/screens/download_app_prompt_screen.dart",
+    "/mnt/workspace/src/moovv-fit-landing/.agents/specs/unified-auth/tasks.md"
+  ],
+  "directory_structure": {
+    "/mnt/workspace/src/moovv-fit-web": "React web portals - admin, physio, clinic routes all in single SPA. CI/CD: .github/workflows/deploy-unified.yml",
+    "/mnt/workspace/src/moovv-fit-mobile": "Flutter patient app with web support. CI/CD: .github/workflows/deploy.yml with platform=web option",
+    "/mnt/workspace/src/moovv-fit-landing": "Landing pages repo with tasks.md to update"
+  }
+}
