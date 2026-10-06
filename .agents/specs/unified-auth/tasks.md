@@ -67,13 +67,15 @@
   - Parse `cognito:groups` from token
   - `hasRole()`, `requireRole()` helpers
 
-- [ ] **TASK-2.3** Update auth middleware
+- [x] **TASK-2.3** Update auth middleware
   - Support both pools
   - Add `X-Active-Role` header support
+  - Implemented in `verifyAuthTokenMultiPool()` with `extractActiveRole()` helper
 
-- [ ] **TASK-2.4** Implement self-booking prevention
+- [x] **TASK-2.4** Implement self-booking prevention
   - Check if booking physio === current user
   - Return 400 error with clear message
+  - Implemented in `physio-book-session-for-patient.ts` (lines 52-66)
 
 - [x] **TASK-2.5** Create admin endpoints for group management
   - `POST /admin/users/{id}/groups` — add user to group

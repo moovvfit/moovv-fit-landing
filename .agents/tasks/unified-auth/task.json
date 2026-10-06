@@ -1,7 +1,7 @@
 {
-  "task_id": "task-unified-auth-phase-a-b",
-  "task_description": "Implement Phase A (Backend Partner Model in moovv-fit-backend-node) and Phase B (Admin Federation in moovv-fit-docs) of the unified identity model. Phase A creates Partner/PartnerMembership entities and API endpoints. Phase B updates the Docs stack authorizer for multi-issuer validation (Docs Pool + Pool B moovv_admin group).",
+  "task_id": "task-unified-auth-remaining",
+  "task_description": "Complete the remaining unified-auth implementation: Cognito groups for Pool A, backend role utilities and admin endpoints, admin dashboard user management UI",
   "status": "completed",
-  "feature_order": ["FEAT-001", "FEAT-002"],
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
   "blocked_reason": null
 }
