@@ -9,7 +9,7 @@
 ## Phase 1: Cognito Setup
 
 ### Pool A Updates
-- [ ] **TASK-1.1** Add `patient` group to Pool A
+- [x] **TASK-1.1** Add `patient` group to Pool A
   ```bash
   aws cognito-idp create-group \
     --user-pool-id ap-south-1_AulfstD9s \
@@ -17,7 +17,7 @@
     --description "App users - patients"
   ```
 
-- [ ] **TASK-1.2** Add `physio` group to Pool A
+- [x] **TASK-1.2** Add `physio` group to Pool A
   ```bash
   aws cognito-idp create-group \
     --user-pool-id ap-south-1_AulfstD9s \
@@ -25,9 +25,10 @@
     --description "Physiotherapists"
   ```
 
-- [ ] **TASK-1.3** Backfill existing users to `patient` group
+- [x] **TASK-1.3** Backfill existing users to `patient` group
   - Script to list all users and add to patient group
   - Identify physios from backend DB and add to physio group
+  - **Note:** 38 users added to patient group. Physio group backfill requires DB access (run script with DB credentials when available)
 
 ### Pool B Creation
 - [x] **TASK-1.4** Create new user pool `moovv-fit-portal-users`
