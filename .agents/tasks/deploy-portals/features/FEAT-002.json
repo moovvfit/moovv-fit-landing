@@ -1,0 +1,25 @@
+{
+  "id": "FEAT-002",
+  "type": "chore",
+  "description": "Trigger deployment of Flutter patient web app to staging via GitHub Actions CI/CD. TASK-6.3 (SHOW_PATIENT_WEB_LOGIN feature flag) and TASK-6.4 (Download App prompt screen) are ALREADY IMPLEMENTED in the codebase. The Flutter app at /mnt/workspace/src/moovv-fit-mobile has deploy.yml workflow with platform=web option. DO NOT manually deploy - use the workflow.",
+  "status": "completed",
+  "steps": [
+    "Navigate to /mnt/workspace/src/moovv-fit-mobile",
+    "Check git status and ensure working tree is clean or commit any pending changes",
+    "Push to main branch to ensure latest code is in remote: `git push origin main`",
+    "Trigger the deploy.yml workflow via GitHub CLI: `gh workflow run deploy.yml -f environment=staging -f platform=web -f upload_to_store=false`",
+    "Monitor workflow run: `gh run list --workflow=deploy.yml --limit 1` and `gh run watch`",
+    "Verify workflow completes successfully"
+  ],
+  "acceptance_criteria": [
+    "GitHub Actions workflow deploy.yml triggers successfully with platform=web",
+    "Workflow completes with success status",
+    "Flutter web app is deployed to patient path"
+  ],
+  "verification": [
+    "Run `gh run list --workflow=deploy.yml --limit 1` to see workflow status",
+    "Run `gh run view <run-id>` to verify successful completion"
+  ],
+  "blocked_reason": null,
+  "findings": "Workflow run ID: 37454882454. Triggered via: gh workflow run deploy.yml -f environment=staging -f platform=web -f upload_to_store=false. Job 'Deploy Web (staging)' completed successfully with all steps passed: Checkout Code, Configure AWS Credentials (OIDC), Setup Flutter, Enable Flutter Web, Install Dependencies, Create Environment Files, Build Web Bundle, Deploy to S3, Invalidate CloudFront."
+}
