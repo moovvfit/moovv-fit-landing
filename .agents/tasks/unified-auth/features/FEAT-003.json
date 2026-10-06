@@ -1,0 +1,28 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Admin Dashboard: Build user management UI with search, filter, and group assignment. Replace placeholder dashboard with functional user list and group management dialog.",
+  "status": "completed",
+  "steps": [
+    "Create /mnt/workspace/src/moovv-fit-web/src/api/admin-groups.ts with API functions: fetchAdminUsers(), fetchUserGroups(userId), addUserToGroup(userId, groupName), removeUserFromGroup(userId, groupName). Use getAdminIdToken() for Authorization header since admin portal uses separate auth from main app",
+    "Create /mnt/workspace/src/moovv-fit-web/src/components/admin/UserList.tsx: table component with columns (Name, Email, Phone, Groups, Actions). Include search input and group filter dropdown. Use TanStack Query pattern from useAdminPhysios",
+    "Create /mnt/workspace/src/moovv-fit-web/src/components/admin/UserGroupsDialog.tsx: modal dialog using @radix-ui/react-dialog. Show checkboxes for groups: patient, physio, clinic_admin, admin, moovv_admin. Call add/remove endpoints on checkbox change",
+    "Update /mnt/workspace/src/moovv-fit-web/src/pages/admin/Dashboard.tsx: replace placeholder card with UserList component. Keep header with user email and logout button. Add navigation to user management",
+    "Create axios instance for admin API at /mnt/workspace/src/moovv-fit-web/src/lib/adminAxios.ts that uses getAdminIdToken() instead of localStorage accessToken",
+    "Run npx tsc -b --noEmit in web repo to verify no TypeScript errors",
+    "Build for deployment: npx vite build --base=/admin/",
+    "Update /mnt/workspace/src/moovv-fit-landing/.agents/specs/unified-auth/tasks.md to mark TASK-5.4 as complete"
+  ],
+  "acceptance_criteria": [
+    "npx tsc -b --noEmit passes with no errors",
+    "npx vite build --base=/admin/ completes successfully",
+    "Dashboard page imports and renders UserList component",
+    "UserGroupsDialog can add/remove groups via API calls",
+    "Admin axios instance correctly attaches admin ID token"
+  ],
+  "verification": [
+    "cd /mnt/workspace/src/moovv-fit-web && npx tsc -b --noEmit && npx vite build --base=/admin/"
+  ],
+  "blocked_reason": null,
+  "findings": "Backend uses phone number as Cognito username (Pool A), so group management API endpoints accept phoneNumber instead of cognitoSub. Physios endpoint excludes cognitoSub from response for security."
+}

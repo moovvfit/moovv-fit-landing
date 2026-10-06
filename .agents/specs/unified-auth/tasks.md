@@ -142,10 +142,11 @@
   - Pre-signup Lambda rejects non-@moovv.fit emails
   - Clear error message displayed
 
-- [ ] **TASK-5.4** Build admin dashboard
+- [x] **TASK-5.4** Build admin dashboard
   - User management
   - Group assignment UI
-  - Currently placeholder after login
+  - UserList component with search/filter
+  - UserGroupsDialog for Cognito group management
 
 ---
 
