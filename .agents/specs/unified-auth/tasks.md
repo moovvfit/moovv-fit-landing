@@ -63,7 +63,7 @@
   - DocsPoolVerifier for Pool B tokens
   - Partner model for API key auth
 
-- [ ] **TASK-2.2** Add role extraction utility
+- [x] **TASK-2.2** Add role extraction utility
   - Parse `cognito:groups` from token
   - `hasRole()`, `requireRole()` helpers
 
@@ -75,12 +75,12 @@
   - Check if booking physio === current user
   - Return 400 error with clear message
 
-- [ ] **TASK-2.5** Create admin endpoints for group management
+- [x] **TASK-2.5** Create admin endpoints for group management
   - `POST /admin/users/{id}/groups` — add user to group
   - `DELETE /admin/users/{id}/groups/{group}` — remove from group
   - `GET /admin/users/{id}/groups` — list user's groups
 
-- [ ] **TASK-2.6** Update user creation flow
+- [x] **TASK-2.6** Update user creation flow
   - Patients auto-added to `patient` group on signup
   - Physios added to `physio` group on approval
 

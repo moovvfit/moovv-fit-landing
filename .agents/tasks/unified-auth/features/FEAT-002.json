@@ -1,29 +1,27 @@
 {
   "id": "FEAT-002",
   "type": "feat",
-  "description": "Phase B: Admin Federation in moovv-fit-docs. Update the backend SDK API (moovv-fit-backend-node) multi-pool verifier to support Docs Pool tokens AND Pool B tokens with moovv_admin group for admin access. The Docs frontend calls the SDK API which validates tokens - there is no separate Docs API authorizer. The change is in the backend's JWT verification to accept Pool B admin tokens when accessing Docs-related endpoints.",
+  "description": "Backend: Add Cognito group management service and admin endpoints. Create endpoints for listing, adding, and removing users from Cognito groups. Update auth-verify to auto-add new users to patient group.",
   "status": "completed",
   "steps": [
-    "1. Add Docs Pool configuration to /mnt/workspace/src/moovv-fit-backend-node/src/shared/auth/multiPoolVerifier.ts: Add COGNITO_DOCS_POOL_ID env var support (default: 'ap-south-1_fYA6SWSpX'). Create third verifier instance for Docs Pool. Update extractPoolFromIss() to detect 'DOCS' pool. Update verify() to try Docs Pool as well.",
-    "2. Extend MultiPoolTokenPayload type in multiPoolVerifier.ts to include pool: 'A' | 'B' | 'DOCS'.",
-    "3. Create /mnt/workspace/src/moovv-fit-backend-node/src/shared/middleware/docsAuth.ts middleware: (a) Validates token using multi-pool verification. (b) For Docs Pool tokens: grants partner developer access (existing flow). (c) For Pool B tokens: checks if 'moovv_admin' is in cognito:groups claim - if yes, grants admin access; if no, denies. (d) Returns DocsAccessClaims with accessLevel ('partner' | 'admin'), sub, and partnerId (for partner access).",
-    "4. Update existing Docs-related handlers (or create them if they don't exist) to use verifyDocsToken() middleware. The SDK API already handles partner auth via invite codes - this adds Pool B admin federation.",
-    "5. Add environment variables to /mnt/workspace/src/moovv-fit-backend-node/serverless.yml: COGNITO_DOCS_POOL_ID, COGNITO_DOCS_CLIENT_ID with defaults for ap-south-1_fYA6SWSpX region.",
-    "6. Create /mnt/workspace/src/moovv-fit-backend-node/src/shared/auth/docsPoolVerifier.ts as a focused verifier for Docs Pool + Pool B admin federation, to keep multi-pool verifier focused on Pool A/B for the main app.",
-    "7. Update /mnt/workspace/src/moovv-fit-backend-node/.env.example to include COGNITO_DOCS_POOL_ID and COGNITO_DOCS_CLIENT_IDS with comments explaining Pool B admin federation."
+    "Add 'moovv_admin' to KnownRole type in /mnt/workspace/src/moovv-fit-backend-node/src/shared/auth/roleUtils.ts",
+    "Create /mnt/workspace/src/moovv-fit-backend-node/src/shared/services/cognitoGroupService.ts with functions: addUserToGroup(username, groupName), removeUserFromGroup(username, groupName), listUserGroups(username) using AWS SDK AdminAddUserToGroupCommand, AdminRemoveUserFromGroupCommand, AdminListGroupsForUserCommand",
+    "Create handler /mnt/workspace/src/moovv-fit-backend-node/src/handlers/admin-manage-user-groups.ts with three exported handlers: listUserGroups (GET), addUserToGroup (POST), removeUserFromGroup (DELETE). Follow admin-list-partners.ts pattern with verifyAdminToken()",
+    "Add IAM permissions to serverless.yml provider.iam.role.statements: cognito-idp:AdminAddUserToGroup, cognito-idp:AdminRemoveUserFromGroup, cognito-idp:AdminListGroupsForUser, cognito-idp:AdminListUsers",
+    "Add function definitions to serverless.yml for the three new handlers: AdminListUserGroups (GET /api/admin/users/{userId}/groups), AdminAddUserToGroup (POST /api/admin/users/{userId}/groups), AdminRemoveUserFromGroup (DELETE /api/admin/users/{userId}/groups/{groupName})",
+    "Modify /mnt/workspace/src/moovv-fit-backend-node/src/handlers/auth-verify.ts to call addUserToGroup(phoneNumber, 'patient') after creating new user profile (around line 180 where isNewUser is set)",
+    "Run npm run type-check in backend repo to verify no TypeScript errors",
+    "Update /mnt/workspace/src/moovv-fit-landing/.agents/specs/unified-auth/tasks.md to mark TASK-2.2, TASK-2.5, TASK-2.6 as complete"
   ],
   "acceptance_criteria": [
-    "npm run build completes without errors in moovv-fit-backend-node",
-    "npm run type-check passes",
-    "DocsPoolVerifier can validate both Docs Pool tokens and Pool B tokens",
-    "Pool B tokens are only accepted for admin access when moovv_admin group is present",
-    "Docs Pool tokens continue to work for partner developer access (backward compatible)",
-    "No changes required in moovv-fit-docs CDK stack - auth federation happens at SDK API level"
+    "npm run type-check passes with no errors",
+    "serverless.yml has IAM permissions for Cognito group operations",
+    "Three new handlers exist and follow admin endpoint pattern",
+    "cognitoGroupService exports addUserToGroup, removeUserFromGroup, listUserGroups"
   ],
   "verification": [
-    "cd /mnt/workspace/src/moovv-fit-backend-node && npm run build",
     "cd /mnt/workspace/src/moovv-fit-backend-node && npm run type-check"
   ],
   "blocked_reason": null,
-  "findings": "DocsPoolVerifier created as a separate verifier (not extending MultiPoolVerifier) to keep concerns separated. The verifier supports: (1) Docs Pool tokens granting 'partner' access with optional partnerId from custom:partnerId claim, (2) Pool B tokens with moovv_admin group granting 'admin' access. Environment variables added: COGNITO_DOCS_POOL_ID (default: ap-south-1_fYA6SWSpX), COGNITO_DOCS_CLIENT_IDS, COGNITO_POOL_B_ID, COGNITO_POOL_B_CLIENT_IDS. Mock tokens available for local dev: mock-docs-admin-token and mock-docs-partner-token."
+  "findings": "Added moovv_admin to KnownRole. New user auto-assignment to patient group is fire-and-forget (logged on failure but doesn't block login). Physio group assignment on approval will require separate implementation when physio approval flow is updated."
 }
