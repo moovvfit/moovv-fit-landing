@@ -1,0 +1,60 @@
+{
+  "task_id": "task-unified-auth-phase-a-b",
+  "project_type": "Multi-repo implementation: TypeScript Lambda backend (moovv-fit-backend-node) + SvelteKit CDK docs portal (moovv-fit-docs)",
+  "language": "TypeScript",
+  "build_system": "pnpm for both repos. Backend uses esbuild via scripts/build.js. Docs uses vite build + CDK for infra.",
+  "test_framework": "Backend: Jest (npm test). Docs: Vitest (pnpm test) + CDK synth for infra validation.",
+  "build_command": "Backend: npm run build. Docs: pnpm build && pnpm cdk:synth",
+  "test_command": "Backend: npm test. Docs: pnpm test",
+  "verification_instructions": "Backend: 1) npm run build 2) npm run type-check 3) npm test. Docs: 1) pnpm build 2) pnpm check 3) pnpm cdk:synth",
+  "snapshot_or_generated_files": null,
+  "environment_constraints": "Both repos use pnpm as package manager. Backend migrations are .cjs files for Sequelize CLI compatibility. DB connection required for migration verification.",
+  "contribution_requirements": "From AGENTS.md: No auto-tests, code-first, max 20 words for status, use Powertools logger not console.log, explicit types not any. Migrations must be .cjs. After modifying code, update docs/architecture/db/manifest.md for DB changes, docs/architecture/api/manifest.md for route changes.",
+  "key_patterns": {
+    "backend_models": "Sequelize-typescript decorators (@Table, @Column, @BelongsTo, @HasMany) in src/database/models/. Models grouped by domain: core/, business/, infrastructure/. Export from index.ts in category folder, then from main index.ts.",
+    "backend_migrations": ".cjs files in src/database/migrations/ with YYYYMMDDHHMMSS- prefix. Use queryInterface.createTable() for new tables. Raw SQL for platform schema tables (see 20260926000001).",
+    "backend_handlers": "Lambda handlers in src/handlers/*.ts. Pattern: export handler function, use verifyAdminToken() for admin endpoints, createSuccessEnvelope/createErrorEnvelope for responses.",
+    "backend_serverless": "Route definitions in serverless.yml functions section. Pattern: functionName → handler path → httpApi events with path/method.",
+    "backend_auth": "Multi-pool JWT verification in src/shared/auth/multiPoolVerifier.ts. Admin auth in src/shared/middleware/adminAuth.ts uses verifyCognitoToken() then checks groups/roles.",
+    "docs_cdk": "CDK stack in infra/lib/docs-stack.ts, constructs in infra/lib/constructs/. DocsAuth construct handles Cognito User Pool.",
+    "existing_platform_schema": "Migration 20260926000001 already created platform.partner_developers, platform.partner_invite_codes, platform.api_keys tables with raw SQL in platform schema."
+  },
+  "relevant_files": [
+    "/mnt/workspace/src/moovv-fit-backend-node/src/database/models/core/Organization.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/database/models/core/OrganizationMembership.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/database/models/business/index.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/database/models/index.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/database/migrations/20260926000001-add-platform-governance-and-audit.cjs",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/shared/auth/multiPoolVerifier.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/shared/middleware/adminAuth.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/handlers/admin-list-organizations.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/handlers/admin-create-organization.ts",
+    "/mnt/workspace/src/moovv-fit-backend-node/serverless.yml",
+    "/mnt/workspace/src/moovv-fit-backend-node/src/shared/constants/enums.ts",
+    "/mnt/workspace/src/moovv-fit-docs/infra/lib/docs-stack.ts",
+    "/mnt/workspace/src/moovv-fit-docs/infra/lib/constructs/docs-auth.ts"
+  ],
+  "directory_structure": {
+    "backend": {
+      "src/database/models/": "Sequelize models grouped by domain (core/, business/, infrastructure/)",
+      "src/database/migrations/": "Sequelize CLI migrations (.cjs files)",
+      "src/handlers/": "Lambda handler functions",
+      "src/shared/auth/": "Multi-pool JWT verification",
+      "src/shared/middleware/": "Auth middleware (adminAuth, physioAuth, orgAuth)",
+      "src/shared/constants/": "Enum definitions",
+      "serverless.yml": "Lambda function and API Gateway route definitions"
+    },
+    "docs": {
+      "infra/lib/": "CDK stack and constructs",
+      "infra/lib/constructs/": "Reusable CDK constructs (docs-auth.ts, docs-ses.ts)",
+      "src/lib/auth/": "Frontend Cognito auth client",
+      "src/lib/api/": "API client for backend calls"
+    }
+  },
+  "pool_ids": {
+    "pool_a": "ap-south-1_AulfstD9s",
+    "pool_b_staging": "ap-south-1_2Pgnh951U",
+    "pool_b_prod": "ap-south-1_0X3DUfeC7",
+    "docs_pool": "ap-south-1_fYA6SWSpX"
+  }
+}
