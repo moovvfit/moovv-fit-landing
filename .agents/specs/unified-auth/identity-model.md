@@ -1,6 +1,6 @@
 # Moovv Identity & Organization Model
 
-> **Status:** Draft  
+> **Status:** Implemented (Phase B complete)  
 > **Created:** 2026-10-06  
 > **Last Updated:** 2026-10-06
 
@@ -31,52 +31,58 @@
 ### Key Decisions
 
 1. **Docs Pool stays separate** — Partner developers use Docs Pool for API access, not Pool B
-2. **Admin federation** — Pool B `moovv_admin` trusted by Docs API (cross-pool trust)
+2. **Admin federation (Option 3)** — Pool B `moovv_admin` group trusted by Docs API (cross-pool trust)
 3. **Physio dual-auth** — Phone OTP (default) OR email (if clinic-affiliated), both on Pool A
 
 ---
 
-## Identity Tiers
+## Implementation Status
 
-### Tier 1: End Users (Pool A)
+### ✅ Completed
 
-| Role | Auth Method | Access |
-|------|-------------|--------|
-| Patient | Phone OTP | Mobile app |
-| Physio (independent) | Phone OTP | Mobile app, /physio/ portal |
-| Physio (clinic-affiliated) | Phone OTP OR Email | Mobile app, /physio/ portal |
+| Item | Details |
+|------|---------|
+| Pool B CDK | `unified-auth-stack.ts` — staging + production deployed |
+| Pool B Groups | `clinic_admin`, `admin`, `moovv_admin` |
+| DocsPoolVerifier | Multi-issuer auth (Docs Pool + Pool B admin federation) |
+| SSM Params | `cognito_docs_pool_id`, `cognito_docs_client_ids` (both envs) |
+| Backend PR #290 | Merged — DocsPoolVerifier + verifyDocsAuth middleware |
 
-**Physio clinic affiliation flow:**
-1. Clinic invites physio by email
-2. Physio can then login with email OR phone
-3. Both methods → same Pool A identity (linked via backend)
-4. Clinic portal shows their affiliated physios
+### 🚧 Pending
 
-### Tier 2: Business Users (Pool B)
-
-| Role | Auth Method | Access |
-|------|-------------|--------|
-| Clinic Staff | Email/Password | /clinic/ portal |
-| Clinic Admin | Email/Google | /clinic/ portal |
-| Moovv Admin | Google (@moovv.fit) | /admin/ portal, Docs API (federated) |
-
-**Pool B Groups:**
-- `clinic_admin` — Clinic management
-- `admin` — Moovv internal (platform ops)
-- `moovv_admin` — Moovv internal (includes Docs access)
-
-### Tier 3: Partner Developers (Docs Pool)
-
-| Role | Auth Method | Access |
-|------|-------------|--------|
-| Partner Admin | Google/Azure | docs.moovv.fit (full API access) |
-| Partner Developer | Google/Azure | docs.moovv.fit (sandbox + read) |
-
-**Docs Pool stays independent** — dedicated to SDK/API integration partners.
+| Item | Details |
+|------|---------|
+| Portal auth testing | Need test users in Pool B |
+| Physio email auth | Phase C — enable email login for clinic-affiliated physios |
+| Partner Portal mode | Phase D — partners using clinic portal instead of SDK |
 
 ---
 
-## Partner Model
+## Partner Model (Existing Schema)
+
+### Database Tables
+
+The existing schema (created by Prisma) handles partner management:
+
+```
+partners (plural)
+├── id, organization_name, contact_email
+├── invite_code, allowed_email_domains
+├── is_active, metadata
+└── created_at, updated_at
+
+api_keys
+├── id, partner_id → partners
+├── key_hash, key_prefix (mv_test_ / mv_live_)
+├── description, is_active
+└── last_used_at, created_by_developer_id
+
+partner_developers
+├── id, partner_id → partners
+├── cognito_sub, email, name, role
+├── allowed_environments
+└── is_active
+```
 
 ### Partner Access Modes
 
@@ -84,43 +90,49 @@
 ┌─────────────────────────────────────────────────────────────────┐
 │  Mode A: SDK/API                │  Mode B: Clinic Portal        │
 │  ─────────────────────────────  │  ─────────────────────────── │
-│  • Docs Pool access (API keys)  │  • Pool B access (email)      │
+│  • Docs Pool access             │  • Pool B access (email)      │
 │  • Direct integration           │  • Standard clinic workflow   │
 │  • Custom booking flows         │  • Uses Moovv UI              │
 │  • e.g., Kinetic Age            │  • e.g., small clinic chain   │
 └─────────────────────────────────────────────────────────────────┘
-
-Partners choose ONE mode (or both if needed)
 ```
 
-### Partner → Clinic Relationship
+---
 
-- Partners can own clinics but interact via SDK/API, not portal
-- Partner's tech team uses Docs Pool for integration
-- Partner's physios available for Moovv app user reviews
-- If using Clinic Portal mode → standard Pool B access
+## Docs Portal Architecture
 
-### Data Model
+### Single App with Mode Toggle
 
 ```
-Partner (NEW - B2B entity)
-├── id, name, logo
-├── api_mode: SDK | PORTAL | BOTH
-├── sandbox_api_key, live_api_key
-├── tech_contacts[] → Docs Pool users
-└── clinics[] → Organization (optional)
-
-Organization (Existing)
-├── type: SOLO | CLINIC_CHAIN
-├── parent_partner_id → Partner (optional)
-├── clinics[] (for CLINIC_CHAIN)
-└── memberships[] → Physios
-
-Physio (Pool A)
-├── org_membership → Organization
-├── role: OWNER | ADMIN | MEMBER
-└── auth_methods: [PHONE, EMAIL]
+┌─────────────────────────────────────────────────────────────────┐
+│                    docs.moovv.fit (Single App)                  │
+├─────────────────────────────────────────────────────────────────┤
+│  Auth: Docs Pool (ap-south-1_fYA6SWSpX)                         │
+│                                                                 │
+│  Mode Toggle: [Sandbox] / [Live]                                │
+│                                                                 │
+│  Sandbox Mode:                    │  Live Mode:                 │
+│  ─────────────────────────────    │  ─────────────────────────  │
+│  API: api.staging.moovv.fit       │  API: api.moovv.fit         │
+│  DB: moovv_fit_staging            │  DB: moovv_fit_production   │
+│  Key prefix: mv_test_             │  Key prefix: mv_live_       │
+│  Color: Amber 🧪                  │  Color: Emerald 🚀          │
+└─────────────────────────────────────────────────────────────────┘
 ```
+
+### API Key Validation Flow
+
+| Mode | API Endpoint | Database | Key Validated |
+|------|--------------|----------|---------------|
+| Sandbox | api.staging.moovv.fit | moovv_fit_staging | `mv_test_*` |
+| Live | api.moovv.fit | moovv_fit_production | `mv_live_*` |
+
+### Kinetic Age (Live Partner)
+
+| Database | Keys |
+|----------|------|
+| moovv_fit_staging | `mv_test_` (active) |
+| moovv_fit_production | `mv_test_` (inactive), `mv_live_` (active) |
 
 ---
 
@@ -134,81 +146,69 @@ Physio (Pool A)
 │  ─────────────────────────────  │  ─────────────────────────── │
 │  admin@moovv.fit                │  No separate admin user       │
 │  groups: [moovv_admin]          │                               │
-│                                 │  Docs API authorizer:         │
+│                                 │  DocsPoolVerifier:            │
 │  Login → Pool B                 │  "Trust Pool B tokens for     │
 │                                 │   users in moovv_admin group" │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Flow
+### DocsPoolVerifier Logic
 
-1. Admin logs into Pool B (admin portal)
-2. Needs to access Docs admin panel
-3. Docs API validates Pool B JWT
-4. Checks: is user in `moovv_admin` group? → Grant access
-5. No second login needed (token passed via redirect/cookie)
+```typescript
+// src/shared/auth/docsPoolVerifier.ts
+async verify(token: string): Promise<DocsPoolTokenPayload> {
+  // 1. Try Docs Pool first (partner developers)
+  if (isDocsPoolToken(token)) {
+    return verifyDocsPool(token) // → partner access
+  }
+  
+  // 2. Try Pool B (Moovv admins)
+  if (isPoolBToken(token) && hasGroup('moovv_admin')) {
+    return verifyPoolB(token) // → admin access
+  }
+  
+  throw new Error('Unauthorized')
+}
+```
 
-### CDK Impact
+### CDK Configuration
 
-| Stack | Changes |
-|-------|---------|
-| **Auth Stack (moovv-fit-infra)** | None |
-| **Docs Stack** | Update API authorizer for multi-issuer validation |
-
-**Authorizer logic:**
-```python
-def authorize(token):
-    # Try Docs Pool first (partner developers)
-    if validate_docs_pool(token):
-        return partner_access(token)
-    
-    # Try Pool B (Moovv admins)
-    if validate_pool_b(token):
-        if 'moovv_admin' in token.groups:
-            return admin_access(token)
-    
-    return deny()
+```typescript
+// moovv-fit-infra/cdk/lib/unified-auth-stack.ts
+new cognito.CfnUserPoolGroup(this, 'MoovvAdminGroup', {
+  userPoolId: this.userPool.userPoolId,
+  groupName: 'moovv_admin',
+  description: 'Moovv admins with Docs portal access (admin federation)',
+})
 ```
 
 ---
 
-## Breaking Changes & Risks
+## SSM Parameters
 
-### Kinetic Age (LIVE PARTNER)
+### Staging (`/moovv-fit/staging/`)
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| None with current plan | Docs Pool unchanged | No migration needed |
+| Parameter | Value |
+|-----------|-------|
+| `cognito_pool_b_id` | `ap-south-1_2Pgnh951U` |
+| `cognito_clinic_portal_client_id` | `2kul2khs0g58aaql5c8ca7uok3` |
+| `cognito_admin_portal_client_id` | `3855djhdraj4trm2a6mkqn7f48` |
+| `cognito_pool_b_domain` | `moovv-fit-portal-staging.auth.ap-south-1.amazoncognito.com` |
+| `cognito_docs_pool_id` | `ap-south-1_fYA6SWSpX` |
+| `cognito_docs_client_ids` | `3nj9u7bgu32ahisvfrrlkpnkpd` |
 
-**Kinetic Age stays on Docs Pool** — no breaking changes for existing partner.
+### Production (`/moovv-fit/production/`)
 
-### Future: If Merging Docs Pool to Pool B
-
-Only if we later decide to fully merge (not current plan):
-
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Auth URL change | Login breaks | Redirect from old Cognito domain |
-| Token format change | API calls fail | Verify JWT claims match |
-| Stored tokens invalid | Force re-login | Clear localStorage, show message |
+| Parameter | Value |
+|-----------|-------|
+| `cognito_pool_b_id` | `ap-south-1_0X3DUfeC7` |
+| `cognito_pool_b_domain` | `moovv-fit-portal.auth.ap-south-1.amazoncognito.com` |
+| `cognito_docs_pool_id` | `ap-south-1_fYA6SWSpX` |
+| `cognito_docs_client_ids` | `3nj9u7bgu32ahisvfrrlkpnkpd` |
 
 ---
 
-## Implementation Phases
-
-### Phase A: Backend Partner Model
-
-1. Create `Partner` table in backend DB
-2. Create `PartnerMembership` table (user → partner, role)
-3. Add `/v1/partners/*` admin endpoints
-4. Migrate Kinetic Age data to new tables
-
-### Phase B: Admin Federation
-
-1. Export Pool B issuer URL from Auth Stack
-2. Update Docs API authorizer for multi-issuer validation
-3. Add `moovv_admin` group to Pool B
-4. Test admin access to Docs API via Pool B token
+## Next Steps
 
 ### Phase C: Physio Email Auth
 
@@ -227,20 +227,13 @@ Only if we later decide to fully merge (not current plan):
 
 ## Appendix: Pool Configurations
 
-### Pool A (Patients + Physios)
-```yaml
-User Pool ID: ap-south-1_AulfstD9s
-Auth: Phone OTP (primary), Email (clinic physios)
-Access: Mobile app, /physio/ portal
-```
-
 ### Pool B Staging
 ```yaml
 User Pool ID: ap-south-1_2Pgnh951U
 Domain: moovv-fit-portal-staging
 App Clients:
-  - moovv-clinic-portal
-  - moovv-admin-portal
+  - moovv-clinic-portal (2kul2khs0g58aaql5c8ca7uok3)
+  - moovv-admin-portal (3855djhdraj4trm2a6mkqn7f48)
 Groups: admin, clinic_admin, moovv_admin
 Identity Providers: Google
 ```
