@@ -1,7 +1,8 @@
 # Unified Auth & Web Platform — Implementation Tasks
 
-> **Status:** Draft  
-> **Created:** 2026-09-30
+> **Status:** In Progress  
+> **Created:** 2026-09-30  
+> **Updated:** 2026-10-03
 
 ---
 
@@ -29,33 +30,37 @@
   - Identify physios from backend DB and add to physio group
 
 ### Pool B Creation
-- [ ] **TASK-1.4** Create new user pool `moovv-fit-portal-users`
-  - UsernameAttributes: [email]
-  - AutoVerifiedAttributes: [email]
-  - Password policy: min 12 chars
+- [x] **TASK-1.4** Create new user pool `moovv-fit-portal-users`
+  - Staging: `ap-south-1_2Pgnh951U`
+  - Production: `ap-south-1_k0gDqGgiR`
 
-- [ ] **TASK-1.5** Add groups to Pool B
-  - `clinic_admin`
-  - `admin`
+- [x] **TASK-1.5** Add groups to Pool B
+  - `admin` ✓
+  - `moovv_admin` ✓ (internal Moovv staff)
 
-- [ ] **TASK-1.6** Create Google OAuth app in Google Cloud Console
-  - Authorized redirect URIs for Cognito
+- [x] **TASK-1.6** Create Google OAuth app in Google Cloud Console
+  - Client ID: `583384531312-dnomdq0oh8rajvcnf0qpi45bjb6anm96`
 
-- [ ] **TASK-1.7** Configure Google IdP in Pool B
+- [x] **TASK-1.7** Configure Google IdP in Pool B
 
-- [ ] **TASK-1.8** Create app client: `moovv-clinic-portal`
+- [x] **TASK-1.8** Create app client: `moovv-clinic-portal`
+  - Staging: `4jgdtmkp5g59l8e5bc38vfl88a`
 
-- [ ] **TASK-1.9** Create app client: `moovv-admin-portal` (Google only)
+- [x] **TASK-1.9** Create app client: `moovv-admin-portal` (Google only)
+  - Staging: `3855djhdraj4trm2a6mkqn7f48`
+  - Production: `7cfjcpujjcfidcmcr7lfjd6m7v`
 
-- [ ] **TASK-1.10** Deploy pre-signup Lambda for @moovv.fit restriction
+- [x] **TASK-1.10** Deploy pre-signup Lambda for @moovv.fit restriction
+  - `moovv-fit-portal-pre-signup-staging`
+  - `moovv-fit-portal-pre-signup-production`
 
 ---
 
 ## Phase 2: Backend Updates
 
-- [ ] **TASK-2.1** Create multi-pool JWT verifier
-  - Support both Pool A and Pool B tokens
-  - Extract pool info from `iss` claim
+- [x] **TASK-2.1** Create multi-pool JWT verifier
+  - DocsPoolVerifier for Pool B tokens
+  - Partner model for API key auth
 
 - [ ] **TASK-2.2** Add role extraction utility
   - Parse `cognito:groups` from token
@@ -122,21 +127,24 @@
 
 ## Phase 5: Frontend - Admin Portal
 
-- [ ] **TASK-5.1** Create admin portal app
+- [x] **TASK-5.1** Create admin portal app
   - Google OAuth only
   - No email/password option
+  - Deployed to `s3://moovv-fit-content-staging/web/admin/`
 
-- [ ] **TASK-5.2** Implement Google login button
-  - Hosted UI or custom button
-  - Handle callback
+- [x] **TASK-5.2** Implement Google login button
+  - Hosted UI redirect flow
+  - Callback handling at `/admin/callback`
+  - Service worker unregister to prevent Flutter SW conflicts
 
-- [ ] **TASK-5.3** Handle non-@moovv.fit rejection
-  - Clear error message
-  - Link to request access
+- [x] **TASK-5.3** Handle non-@moovv.fit rejection
+  - Pre-signup Lambda rejects non-@moovv.fit emails
+  - Clear error message displayed
 
 - [ ] **TASK-5.4** Build admin dashboard
   - User management
   - Group assignment UI
+  - Currently placeholder after login
 
 ---
 
@@ -165,46 +173,43 @@
 
 ## Phase 7: Infrastructure
 
-- [ ] **TASK-7.1** Use existing S3 bucket structure
+- [x] **TASK-7.1** Use existing S3 bucket structure
   
   **Production:** `s3://moovv-fit-content-production/`
   ```
   web/
   ├── landing/    # Existing
-  ├── patient/    # NEW - Flutter web
-  ├── physio/     # NEW - Physio portal
-  ├── clinic/     # NEW - Clinic portal
-  └── admin/      # NEW - Admin portal
+  ├── patient/    # Flutter web (default)
+  ├── physio/     # Physio portal
+  ├── clinic/     # Clinic portal
+  └── admin/      # Admin portal
   ```
   
   **Staging:** `s3://moovv-fit-content-staging/`
   ```
   web/
-  ├── landing/    # NEW - create folder
-  ├── patient/    # NEW - Flutter web
-  ├── physio/     # NEW - Physio portal
-  ├── clinic/     # NEW - Clinic portal
-  └── admin/      # NEW - Admin portal
+  ├── patient/    # Flutter web (default) ✓
+  ├── admin/      # Admin portal ✓
+  ├── physio/     # Physio portal (pending)
+  └── clinic/     # Clinic portal (pending)
   ```
-  
-  **No new buckets needed** — uses existing buckets.
 
-- [ ] **TASK-7.2** Create CloudFront distribution for `app.moovv.fit`
-  - Multiple origins (per path pattern)
-  - SSL cert (ACM)
+- [x] **TASK-7.2** CloudFront distribution for `app-staging.moovv.fit`
+  - Distribution: `E1AWTDC8L48X1Q`
+  - Multiple behaviors for path-based routing
+  - SSL configured
 
-- [ ] **TASK-7.3** Configure path-based routing
-  - `/` → patient
-  - `/physio/*` → physio
-  - `/clinic/*` → clinic
-  - `/admin/*` → admin
+- [x] **TASK-7.3** Configure path-based routing
+  - `/` → patient (Flutter)
+  - `/admin/*` → admin portal (React)
+  - Removed error responses to prevent Flutter serving React routes
 
 - [ ] **TASK-7.4** Deploy legacy redirect CloudFront function
   - `physio.moovv.fit` → `app.moovv.fit/physio`
   - `clinic.moovv.fit` → `app.moovv.fit/clinic`
 
 - [ ] **TASK-7.5** Update DNS records
-  - `app.moovv.fit` → CloudFront
+  - `app.moovv.fit` → CloudFront (production)
   - Keep legacy domains pointing to redirect
 
 - [ ] **TASK-7.6** Update CI/CD pipelines
