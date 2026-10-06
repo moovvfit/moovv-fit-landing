@@ -1,0 +1,25 @@
+{
+  "id": "FEAT-003",
+  "type": "docs",
+  "description": "Update tasks.md to mark deployment-related phases as complete. Phase 3 (Physio Portal), Phase 4 (Clinic Portal), Phase 5 (Admin Portal) were already implemented. Phase 6 TASK-6.3 and TASK-6.4 are already implemented in the codebase. Mark all deployed tasks as complete.",
+  "status": "completed",
+  "steps": [
+    "Open /mnt/workspace/src/moovv-fit-landing/.agents/specs/unified-auth/tasks.md",
+    "Update Phase 3 tasks (TASK-3.1 through TASK-3.5) - mark as [x] complete with note 'Implemented in React SPA, deployed to /physio/'",
+    "Update Phase 4 tasks (TASK-4.1 through TASK-4.4) - mark as [x] complete with note 'Implemented in React SPA, deployed to /clinic/'",
+    "Phase 5 is already marked complete - verify tasks are checked",
+    "Update Phase 6: TASK-6.1 (Configure Flutter web build) - mark as [x] complete",
+    "TASK-6.2 (Web auth flow) remains incomplete - requires backend work",
+    "TASK-6.3 (Feature flag for login visibility) - mark as [x] complete with note 'Implemented via RemoteConfigService.showWebLogin, defaults to false on web'",
+    "TASK-6.4 (Download App prompt) - mark as [x] complete with note 'DownloadAppPromptScreen implemented with App Store/Play Store badges'"
+  ],
+  "acceptance_criteria": [
+    "tasks.md is updated with correct completion markers for Phase 3, 4, and 6",
+    "Notes explain the implementation approach for each phase"
+  ],
+  "verification": [
+    "Read tasks.md and verify checkboxes are updated correctly"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

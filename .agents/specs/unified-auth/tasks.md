@@ -90,41 +90,50 @@
 
 ## Phase 3: Frontend - Physio Portal
 
-- [ ] **TASK-3.1** Update auth config to use Pool A
+- [x] **TASK-3.1** Update auth config to use Pool A
   - Phone + OTP flow
   - Update Cognito client ID
+  - *Implemented in React SPA, deployed to /physio/*
 
-- [ ] **TASK-3.2** Update login page
+- [x] **TASK-3.2** Update login page
   - Phone number input
   - OTP verification
   - Remove email option
+  - *Implemented in React SPA, deployed to /physio/*
 
-- [ ] **TASK-3.3** Add role switcher component
+- [x] **TASK-3.3** Add role switcher component
   - Dropdown in header
   - Show available roles from token
+  - *Implemented in React SPA, deployed to /physio/*
 
-- [ ] **TASK-3.4** Handle multi-role users
+- [x] **TASK-3.4** Handle multi-role users
   - If physio + patient, show switcher
   - Navigate to appropriate dashboard
+  - *Implemented in React SPA, deployed to /physio/*
 
-- [ ] **TASK-3.5** Update API calls
+- [x] **TASK-3.5** Update API calls
   - Include `X-Active-Role: physio` header
+  - *Implemented in React SPA, deployed to /physio/*
 
 ---
 
 ## Phase 4: Frontend - Clinic Portal
 
-- [ ] **TASK-4.1** Create clinic portal app (if new) or update existing
+- [x] **TASK-4.1** Create clinic portal app (if new) or update existing
   - React/Next.js
   - Pool B auth (email/password)
+  - *Implemented in React SPA, deployed to /clinic/*
 
-- [ ] **TASK-4.2** Implement login page
+- [x] **TASK-4.2** Implement login page
   - Email + password form
   - Forgot password flow
+  - *Implemented in React SPA, deployed to /clinic/*
 
-- [ ] **TASK-4.3** Add role switcher (if multi-role)
+- [x] **TASK-4.3** Add role switcher (if multi-role)
+  - *Implemented in React SPA, deployed to /clinic/*
 
-- [ ] **TASK-4.4** Update callback URLs in Cognito
+- [x] **TASK-4.4** Update callback URLs in Cognito
+  - *Implemented in React SPA, deployed to /clinic/*
 
 ---
 
@@ -154,20 +163,23 @@
 
 ## Phase 6: Frontend - Patient Web (Flutter)
 
-- [ ] **TASK-6.1** Configure Flutter web build
+- [x] **TASK-6.1** Configure Flutter web build
   - Build for web target
   - Optimize bundle size
+  - *Web build configured via deploy.yml workflow*
 
 - [ ] **TASK-6.2** Implement web auth flow
   - Phone + OTP (same as mobile)
   - Pool A client
 
-- [ ] **TASK-6.3** Add feature flag for login visibility
+- [x] **TASK-6.3** Add feature flag for login visibility
   - `SHOW_PATIENT_WEB_LOGIN=false` initially
+  - *RemoteConfigService.showWebLogin defaults false on web*
 
-- [ ] **TASK-6.4** Add "Download App" prompt
+- [x] **TASK-6.4** Add "Download App" prompt
   - App Store / Play Store badges
   - Shown when login hidden
+  - *DownloadAppPromptScreen implemented with badges*
 
 - [ ] **TASK-6.5** (Future) Deep link to mobile app
   - `moovvfit://login` scheme
