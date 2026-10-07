@@ -55,7 +55,12 @@
 
 ### 2.1 Pool A — Patients & Physios (Existing)
 
-**Pool ID:** `ap-south-1_AulfstD9s`
+| Environment | Pool ID |
+|-------------|---------|
+| Production  | `ap-south-1_AulfstD9s` |
+| Staging     | `ap-south-1_lAZmuElh6` |
+
+> ⚠️ **See [ADR-004: Cognito Environment Parity](/moovv-fit-infra/docs/architecture/adr/ADR-004-COGNITO-ENVIRONMENT-PARITY.md)** — All Cognito changes must be applied to both environments.
 
 **Changes Required:**
 ```

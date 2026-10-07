@@ -9,21 +9,16 @@
 ## Phase 1: Cognito Setup
 
 ### Pool A Updates
+
+> ⚠️ **Environment parity required** — See [ADR-004](/moovv-fit-infra/docs/architecture/adr/ADR-004-COGNITO-ENVIRONMENT-PARITY.md)
+
 - [x] **TASK-1.1** Add `patient` group to Pool A
-  ```bash
-  aws cognito-idp create-group \
-    --user-pool-id ap-south-1_AulfstD9s \
-    --group-name patient \
-    --description "App users - patients"
-  ```
+  - [x] Production (`ap-south-1_AulfstD9s`)
+  - [x] Staging (`ap-south-1_lAZmuElh6`) — Added 2026-10-03
 
 - [x] **TASK-1.2** Add `physio` group to Pool A
-  ```bash
-  aws cognito-idp create-group \
-    --user-pool-id ap-south-1_AulfstD9s \
-    --group-name physio \
-    --description "Physiotherapists"
-  ```
+  - [x] Production (`ap-south-1_AulfstD9s`)
+  - [x] Staging (`ap-south-1_lAZmuElh6`) — Added 2026-10-03
 
 - [x] **TASK-1.3** Backfill existing users to `patient` group
   - Script to list all users and add to patient group
