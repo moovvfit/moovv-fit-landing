@@ -250,11 +250,11 @@
 
 ## Phase 9: Testing & Launch
 
-- [ ] **TASK-9.1** Test all auth flows in staging
-  - Patient phone OTP
-  - Physio phone OTP
-  - Clinic email/password
-  - Admin Google OAuth
+- [x] **TASK-9.1** Test all auth flows in staging
+  - Patient phone OTP ✓ (`+911234567890`, OTP: `381566`)
+  - Physio phone OTP ✓ (`+911234567894`, OTP: `947283`)
+  - Clinic phone OTP ✓ (`+911234567895`, OTP: `947283`)
+  - Admin Google OAuth ✓ (`@moovv.fit` emails)
 
 - [ ] **TASK-9.2** Test role switching
   - Physio with patient role
