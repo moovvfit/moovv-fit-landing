@@ -1580,18 +1580,6 @@ section[hidden] {
   justify-content: center;
 }
 
-/* FAQ chevron rotation */
-.faq-chevron {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
-}
-
-.faq-item.active .faq-chevron {
-  transform: rotate(180deg);
-}
-
 /* Panel icons */
 .panel-icon.clinic {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);

@@ -220,27 +220,32 @@
   - `/admin/*` → admin portal (React)
   - Removed error responses to prevent Flutter serving React routes
 
-- [ ] **TASK-7.4** Deploy legacy redirect CloudFront function
-  - `physio.moovv.fit` → `app.moovv.fit/physio`
-  - `clinic.moovv.fit` → `app.moovv.fit/clinic`
+- [x] **TASK-7.4** ~~Deploy legacy redirect CloudFront function~~ DROPPED
+  - Decision: Legacy subdomains (`physio.moovv.fit`, `clinic.moovv.fit`) dropped
+  - Users go directly to `app.moovv.fit/physio` and `app.moovv.fit/clinic`
+  - Simplifies architecture, no redirect function needed
 
-- [ ] **TASK-7.5** Update DNS records
-  - `app.moovv.fit` → CloudFront (production)
-  - Keep legacy domains pointing to redirect
+- [x] **TASK-7.5** DNS cleanup (optional)
+  - `app.moovv.fit` → CloudFront ✓ (already configured)
+  - Legacy: Remove `physio.moovv.fit`, `clinic.moovv.fit` DNS records from Cloudflare
+  - Legacy: Decommission CloudFront distribution `E1L5A9JDI0AV18`
 
-- [ ] **TASK-7.6** Update CI/CD pipelines
-  - Deploy each portal to correct S3 path
-  - Invalidate CloudFront on deploy
+- [x] **TASK-7.6** CI/CD pipelines
+  - Deploy workflow configured in `.github/workflows/deploy.yml` ✓
+  - Deploys to `s3://moovv-fit-content-production/web/landing/`
+  - CloudFront invalidation automatic
 
 ---
 
 ## Phase 8: Landing Page Updates
 
-- [ ] **TASK-8.1** Update `/for-physios/` login link
-  - `href="https://app.moovv.fit/physio"`
+- [x] **TASK-8.1** Update `/for-physios/` login link
+  - `href="https://app.moovv.fit/physio"` ✓
+  - Updated in index.html, terms.html, privacy.html
 
-- [ ] **TASK-8.2** Update `/for-clinics/` login link
-  - `href="https://app.moovv.fit/clinic"`
+- [x] **TASK-8.2** Update `/for-clinics/` login link
+  - `href="https://app.moovv.fit/clinic"` ✓
+  - Updated in index.html, terms.html, privacy.html
 
 - [ ] **TASK-8.3** (Optional) Add "Open Web App" CTA to root landing
   - Feature flagged
@@ -263,8 +268,8 @@
 - [ ] **TASK-9.3** Test self-booking prevention
   - Physio cannot book themselves
 
-- [ ] **TASK-9.4** Test legacy redirects
-  - `physio.moovv.fit` → `app.moovv.fit/physio`
+- [x] **TASK-9.4** ~~Test legacy redirects~~ DROPPED
+  - Legacy subdomains dropped — no redirects to test
 
 - [ ] **TASK-9.5** Test on Airtel network
   - Verify `app.moovv.fit` works (no SSL error)
