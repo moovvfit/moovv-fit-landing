@@ -1553,7 +1553,11 @@ section[hidden] {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
+  :root {
+    --section-padding: 56px;
+  }
+
   /* FAQ Mobile */
   .faq-question {
     padding: 20px;
@@ -1567,12 +1571,6 @@ section[hidden] {
   .faq-answer p {
     padding: 0 20px 20px 52px;
     font-size: 14px;
-  }
-}
-
-@media (max-width: 600px) {
-  :root {
-    --section-padding: 56px;
   }
 
   .hero {
