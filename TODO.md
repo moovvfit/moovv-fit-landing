@@ -2,7 +2,7 @@
 
 ## Legal / Compliance
 
-- [ ] **CORE-78** — Add Grievance Officer details to privacy pages (DPDP compliance) — Due Oct 31, assigned r@moovv.fit
+- [x] **CORE-78** — Add Grievance Officer details to privacy pages (DPDP compliance) ✅ Done
 
 ---
 
