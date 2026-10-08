@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0](https://github.com/moovvfit/moovv-fit-landing/compare/v1.2.0...v1.3.0) (2026-10-08)
+
+
+### Features
+
+* **privacy:** add Grievance Officer for DPDP compliance (CORE-78) ([78a9900](https://github.com/moovvfit/moovv-fit-landing/commit/78a99007e823f917899e096c9eab386bc94822e6))
+
+
+### Bug Fixes
+
+* **faq:** add 768px breakpoint for FAQ mobile rules to match root ([091eb51](https://github.com/moovvfit/moovv-fit-landing/commit/091eb516f27f58e4d29ed261d410c0e071430b11))
+* **faq:** align sub-landing FAQ styles to match root card appearance ([a60cf41](https://github.com/moovvfit/moovv-fit-landing/commit/a60cf41ebfc2b88148d8fdbf9bbba335bf8d5ecd))
+* **faq:** move mobile rules from 768px to 600px breakpoint ([18c2f25](https://github.com/moovvfit/moovv-fit-landing/commit/18c2f25fe67844f7544a58a034631b1af3266ed4))
+* **nav:** align sub-landing pages to root conventions ([8634afb](https://github.com/moovvfit/moovv-fit-landing/commit/8634afb3efeb37e012a14b5e7d1593ce48cf2cb6))
+
 ## [1.2.0](https://github.com/moovvfit/moovv-fit-landing/compare/v1.1.0...v1.2.0) (2026-10-08)
 
 
