@@ -1553,12 +1553,8 @@ section[hidden] {
   }
 }
 
-@media (max-width: 600px) {
-  :root {
-    --section-padding: 56px;
-  }
-
-  /* FAQ Mobile */
+/* FAQ Mobile - matches root breakpoint */
+@media (max-width: 768px) {
   .faq-question {
     padding: 20px;
     gap: 12px;
@@ -1571,6 +1567,12 @@ section[hidden] {
   .faq-answer p {
     padding: 0 20px 20px 52px;
     font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section-padding: 56px;
   }
 
   .hero {
