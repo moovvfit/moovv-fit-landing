@@ -1,6 +1,6 @@
 # Unified Auth & Web Platform — Implementation Tasks
 
-> **Status:** In Progress  
+> **Status:** Complete  
 > **Created:** 2026-09-30  
 > **Updated:** 2026-10-03
 
@@ -163,7 +163,7 @@
   - Optimize bundle size
   - *Web build configured via deploy.yml workflow*
 
-- [ ] **TASK-6.2** Implement web auth flow
+- [x] **TASK-6.2** Implement web auth flow
   - Phone + OTP (same as mobile)
   - Pool A client
 
@@ -176,7 +176,7 @@
   - Shown when login hidden
   - *DownloadAppPromptScreen implemented with badges*
 
-- [ ] **TASK-6.5** (Future) Deep link to mobile app
+- [x] **TASK-6.5** (Future) Deep link to mobile app
   - `moovvfit://login` scheme
   - Fallback to store if app not installed
 
@@ -242,9 +242,9 @@
   - `href="https://app.moovv.fit/clinic"` ✓
   - Updated in index.html, terms.html, privacy.html
 
-- [ ] **TASK-8.3** (Optional) Add "Open Web App" CTA to root landing
-  - Feature flagged
-  - Links to `app.moovv.fit`
+- [x] **TASK-8.3** ~~(Optional) Add "Open Web App" CTA to root landing~~ CANCELLED
+  - Web access enabled via Firebase Remote Config instead
+  - No landing page change needed
 
 ---
 
@@ -256,24 +256,24 @@
   - Clinic phone OTP ✓ (`+911234567895`, OTP: `947283`)
   - Admin Google OAuth ✓ (`@moovv.fit` emails)
 
-- [ ] **TASK-9.2** Test role switching
+- [x] **TASK-9.2** Test role switching
   - Physio with patient role
   - Verify no re-auth needed
 
-- [ ] **TASK-9.3** Test self-booking prevention
+- [x] **TASK-9.3** Test self-booking prevention
   - Physio cannot book themselves
 
 - [x] **TASK-9.4** ~~Test legacy redirects~~ DROPPED
   - Legacy subdomains dropped — no redirects to test
 
-- [ ] **TASK-9.5** Test on Airtel network
+- [x] **TASK-9.5** Test on Airtel network
   - Verify `app.moovv.fit` works (no SSL error)
 
-- [ ] **TASK-9.6** Production deployment
+- [x] **TASK-9.6** Production deployment
   - Staged rollout
   - Monitor error rates
 
-- [ ] **TASK-9.7** Announce to users
+- [x] **TASK-9.7** Announce to users
   - Email notification of new URLs
   - Update documentation
 
