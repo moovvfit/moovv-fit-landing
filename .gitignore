@@ -29,6 +29,7 @@ npm-debug.log
 !.agents/tasks/.gitkeep
 .agents/shared
 .agents/skills/
+.agents/settings/mcp.json
 publish/
 
 # Worktrees
